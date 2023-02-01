@@ -1,19 +1,16 @@
-import { Button, Card } from '@rneui/themed';
-import { Text } from 'react-native';
+import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Routes from './src/routes';
+
+const queryClient = new QueryClient()
 
 export default function App() {
   return (
     <SafeAreaView>
-       <Card>
-        <Text>Teste</Text>
-        <Button 
-          size='md'
-          type='outline'
-        >
-          Teste
-        </Button>
-       </Card>
+      <QueryClientProvider client={queryClient}>
+        <Routes />
+      </QueryClientProvider>
     </SafeAreaView>
   );
 }
