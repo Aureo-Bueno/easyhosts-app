@@ -1,10 +1,11 @@
-import { Text } from '@rneui/themed';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, Button } from 'react-native';
+import { INavigationProps } from '../../types/navigation';
 
-export default function Login() {
+export default function Login({ navigation }:INavigationProps) {
     return (
-        <SafeAreaView>
+        <View>
             <Text>Ola</Text>
-        </SafeAreaView>
+            <Button title='Tela Home' onPress={() => navigation.navigate('Home')} />
+        </View>
     )
 }
