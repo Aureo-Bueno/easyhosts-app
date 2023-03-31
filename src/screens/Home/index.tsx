@@ -1,12 +1,12 @@
-import { Button, Text, View } from 'react-native';
-import { styles } from '../../global/styles';
-import { INavigationProps } from '../../types/navigation';
+import { View } from 'react-native';
+import { Text } from '@rneui/themed'
 
-export default function Home({ navigation }:INavigationProps) {
-    return (
-        <View>
-            <Text style={styles.text}>Ola</Text>
-            <Button title='Tela Login' onPress={() => navigation.navigate('Login')} />
-        </View>
-    );
-};
+function Home() {
+  return(
+    <View>
+      <Text h2>Hello World</Text>
+    </View>
+  );
+}
+
+export default Home;

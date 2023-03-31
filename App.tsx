@@ -1,18 +1,10 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import Routes from './src/routes';
-import Bedroom from './src/screens/Bedroom';
-
-const queryClient = new QueryClient()
+import { NavigationContainer } from '@react-navigation/native';
+import AppRoutes from './src/routes';
 
 export default function App() {
   return (
-    <View>
-      <QueryClientProvider client={queryClient}>
-        {/* <Routes /> */}
-        <Bedroom />
-      </QueryClientProvider>
-    </View>
+    <NavigationContainer>
+      <AppRoutes />
+    </NavigationContainer>
   );
 }
