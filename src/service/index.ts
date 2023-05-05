@@ -1,7 +1,10 @@
-import Axios from 'axios';
+import axios from 'axios';
 
-const base = 'https://localhost:5001/';
+const base = 'https://10.0.0.107:5001';
 
-export const axiosClient = Axios.create({
+export const axiosClient = axios.create({
   baseURL: base,
+  headers: {
+    "Content-Type": "application/json"
+  }
 });

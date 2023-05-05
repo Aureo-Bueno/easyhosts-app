@@ -1,12 +1,17 @@
 import { axiosClient } from '..';
 
 export const useGet = async () => {
-  const response = await axiosClient.get(`/api/easyhosts/Bedroom/getBedrooms`);
-  return response.data;
-}
+  try {
+    const response = await axiosClient.get(`/api/easyhosts/Bedroom`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 export const usePost = async (name: string, number: number) => {
-  const response = await axiosClient.post(`/api/easyhosts/Bedroom/insertBedroom`, {name, number});
+  const response = await axiosClient.post(`/api/easyhosts/Bedroom`, {name, number});
   return response.data;
 }
 
