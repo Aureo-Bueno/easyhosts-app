@@ -1,13 +1,13 @@
 import { View } from 'react-native';
 import { Text} from '@rneui/themed';
 
-const Home = () => {
+const App = () => {
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>App</Text>
     </View>
   );
 };
 
-export default Home;
+export default App;

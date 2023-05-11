@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import AppRoutes from './src/routes';
+import RootRoutes from './src/routes';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -10,7 +10,7 @@ export default function App() {
     <SafeAreaProvider>
       <QueryClientProvider client={query}>
         <NavigationContainer>
-          <AppRoutes />
+          <RootRoutes />
         </NavigationContainer>
       </QueryClientProvider>
     </SafeAreaProvider>
