@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { Text} from '@rneui/themed';
 
-const Home = () => {
+function Home() {
 
   return (
     <View>

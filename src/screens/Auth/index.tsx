@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { Text} from '@rneui/themed';
 
-const Auth = () => {
+function Auth () {
 
   return (
     <View>
