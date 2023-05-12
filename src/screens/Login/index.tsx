@@ -3,34 +3,53 @@ import { Text, Input, Button } from '@rneui/themed';
 import { styles } from './styles';
 import React from 'react';
 import { INavigation } from '../../@types';
-import { login, useLoginMutation } from '../../service/auth/login';
+import { useLoginMutation } from '../../service/auth/login';
+import * as Animatable from 'react-native-animatable';
 
-function Login ({ navigation }: INavigation) {
+
+function Login({ navigation }: INavigation) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const { isError, mutate, isLoading } = useLoginMutation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+        <Text style={styles.message}>Bem-vindo(a)</Text>
+      </Animatable.View>
+
       {isError && (
         <Text>Ocorreu um erro</Text>
       )}
-      <View style={styles.form}>
+
+      <Animatable.View animation="fadeInUp" style={styles.containerFormu}>
+        <Text style={styles.title}>Email</Text>
         <Input
           style={styles.input}
           placeholder='Digite seu e-mail'
           onChangeText={(text) => setEmail(text)}
         />
+
+        <Text style={styles.title}>Senha</Text>
         <Input
           style={styles.input}
           placeholder='Digite sua senha'
           onChangeText={(text) => setPassword(text)}
         />
+
         <Button
-          style={styles.button}
-          title='Acessar'
-          onPress={() => mutate({ email, password } , {
+          title='Entrar'
+          titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
+          buttonStyle={{
+            backgroundColor: '#04091D',
+            width: '100%',
+            borderRadius: 5,
+            marginTop: 45,
+            paddingVertical: 18,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => mutate({ email, password }, {
             onSuccess: () => {
               navigation.navigate('Auth');
             },
@@ -41,14 +60,13 @@ function Login ({ navigation }: INavigation) {
                   onPress: () => console.log('Cancel Pressed'),
                   style: 'cancel',
                 },
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
               ]);
             }
           })}
-          disabled={!email || !password}
           loading={isLoading}
         />
-      </View>
+      </Animatable.View>
     </View>
   );
 };

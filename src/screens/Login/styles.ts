@@ -3,32 +3,36 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#04091D'
+  },
+  containerHeader: {
+    marginTop: '20%',
+    marginBottom: '10%',
+    paddingStart: '5%'
+  },
+  message: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#FFF'
+  },
+  containerFormu: {
     backgroundColor: '#FFF',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    paddingStart: '5%',
+    paddingEnd: '5%',
+    paddingTop: '10%',
+    paddingBottom: '30%'
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 80,
-    marginBottom: 16,
-    color: '#000000',
-  },
-  form: {
-    width: '80%',
-    alignItems: 'center',
-    padding: '10%',
-    backgroundColor: '#F1F1F1',
-    border: '50px solid'
+    fontSize: 20,
+    marginTop: 28
   },
   input: {
-    width: '100%',
-    height: 50,
-    fontSize: 16,
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    borderBottomWidth: 1,
+    height: 40,
+    fontSize: 16
+  }
 });
