@@ -1,31 +1,34 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import * as Animatable from 'react-native-animatable';
 
-export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#04091D',
-    },
-    containerLogo: {
-        flex: 2,
-        backgroundColor: '#04091D',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    containerFormu: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        paddingHorizontal: '5%',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: 28,
-        marginBottom: 12,
-    },
-    text: {
-        color: '#a1a1a1',
-        fontSize: 16,
-    },
-});
+export const Container = styled.View`
+  flex: 1;
+  backgroundColor: '#04091D';
+`;
+
+export const ContainerLogo = styled.View`
+  flex: 2;
+  backgroundColor: '#04091D';
+  justifyContent: 'center';
+  alignItems: 'center';
+`;
+
+export const ContainerForm = styled(Animatable.View)`
+  flex: 1;
+  backgroundColor: '#FFF';
+  borderTopLeftRadius: 25;
+  borderTopRightRadius: 25;
+  paddingHorizontal: '5%';
+`;
+
+export const Title = styled.Text`
+  fontSize: 24;
+  fontWeight: 'bold';
+  marginTop: 28;
+  marginBottom: 12;
+`;
+
+export const Text = styled.Text`
+  color: '#a1a1a1';
+  fontSize: 16;
+`;
