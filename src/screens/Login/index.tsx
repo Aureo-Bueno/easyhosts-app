@@ -32,9 +32,9 @@ function Login ({ navigation }: INavigation) {
           title='Acessar'
           onPress={() => mutate({ email, password } , {
             onSuccess: () => {
-              navigation.navigate('Auth')
+              navigation.navigate('Auth');
             },
-            onError: (error) => {
+            onError: () => {
               Alert.alert('Erro ao fazer Login!', 'Tente novamente mais tarde!', [
                 {
                   text: 'Cancel',
