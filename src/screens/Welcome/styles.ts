@@ -3,32 +3,32 @@ import * as Animatable from 'react-native-animatable';
 
 export const Container = styled.View`
   flex: 1;
-  backgroundColor: '#04091D';
+  background-color: #04091D;
 `;
 
 export const ContainerLogo = styled.View`
   flex: 2;
-  backgroundColor: '#04091D';
-  justifyContent: 'center';
-  alignItems: 'center';
+  background-color: #04091D;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerForm = styled(Animatable.View)`
   flex: 1;
-  backgroundColor: '#FFF';
-  borderTopLeftRadius: 25;
-  borderTopRightRadius: 25;
-  paddingHorizontal: '5%';
+  background-color: #FFF;
+  border-top-right-radius: 25px;
+  border-top-right-radius: 25px;
+  padding: 0 5% 0 5%;
 `;
 
 export const Title = styled.Text`
-  fontSize: 24;
-  fontWeight: 'bold';
-  marginTop: 28;
-  marginBottom: 12;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 28px;
+  margin-bottom: 12px;
 `;
 
 export const Text = styled.Text`
-  color: '#a1a1a1';
-  fontSize: 16;
+  color: #a1a1a1;
+  font-size: 16px;
 `;

@@ -1,6 +1,6 @@
-import { Alert, View } from 'react-native';
-import { Text, Input, Button } from '@rneui/themed';
-import { styles } from './styles';
+import { Alert } from 'react-native';
+import { Text, Button } from '@rneui/themed';
+import * as S from './styles';
 import React from 'react';
 import { INavigation } from '../../@types';
 import { useLoginMutation } from '../../service/auth/login';
@@ -13,26 +13,24 @@ function Login({ navigation }: INavigation) {
   const { isError, mutate, isLoading } = useLoginMutation();
 
   return (
-    <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Bem-vindo(a)</Text>
-      </Animatable.View>
+    <S.Container>
+      <S.ContainerHeader animation="fadeInLeft" delay={500}>
+        <S.Message>Bem-vindo(a)</S.Message>
+      </S.ContainerHeader>
 
       {isError && (
         <Text>Ocorreu um erro</Text>
       )}
 
-      <Animatable.View animation="fadeInUp" style={styles.containerFormu}>
-        <Text style={styles.title}>Email</Text>
-        <Input
-          style={styles.input}
+      <S.ContainerForms animation="fadeInUp">
+        <S.Title >Email</S.Title>
+        <S.Input
           placeholder='Digite seu e-mail'
           onChangeText={(text) => setEmail(text)}
         />
 
-        <Text style={styles.title}>Senha</Text>
-        <Input
-          style={styles.input}
+        <S.Title>Senha</S.Title>
+        <S.Input
           placeholder='Digite sua senha'
           onChangeText={(text) => setPassword(text)}
         />
@@ -66,8 +64,8 @@ function Login({ navigation }: INavigation) {
           })}
           loading={isLoading}
         />
-      </Animatable.View>
-    </View>
+      </S.ContainerForms>
+    </S.Container>
   );
 };
 
