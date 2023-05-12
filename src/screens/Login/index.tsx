@@ -4,8 +4,6 @@ import * as S from './styles';
 import React from 'react';
 import { INavigation } from '../../@types';
 import { useLoginMutation } from '../../service/auth/login';
-import * as Animatable from 'react-native-animatable';
-
 
 function Login({ navigation }: INavigation) {
   const [email, setEmail] = React.useState('');
