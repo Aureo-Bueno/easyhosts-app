@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { axiosClient } from '../..';
+import { axiosClient } from '../../..';
 
 interface ILogin {
   email: string,

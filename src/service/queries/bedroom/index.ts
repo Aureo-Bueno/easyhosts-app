@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { useGet } from '..';
 import { AxiosError } from 'axios';
+import { useGet } from './axios';
 
 interface BedroomDTO {
   id: number,

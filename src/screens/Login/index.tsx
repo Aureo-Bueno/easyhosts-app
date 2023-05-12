@@ -3,7 +3,7 @@ import { Text, Button } from '@rneui/themed';
 import * as S from './styles';
 import React from 'react';
 import { INavigation } from '../../@types';
-import { useLoginMutation } from '../../service/auth/login';
+import { useLoginMutation } from '../../service/mutations/auth/login';
 
 function Login({ navigation }: INavigation) {
   const [email, setEmail] = React.useState('');
