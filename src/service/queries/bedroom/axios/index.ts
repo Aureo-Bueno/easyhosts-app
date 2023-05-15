@@ -1,4 +1,4 @@
-import { axiosClient } from '..';
+import { axiosClient } from '../../..';
 
 export const useGet = async () => {
   try {

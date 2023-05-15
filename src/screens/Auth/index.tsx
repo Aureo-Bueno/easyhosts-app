@@ -1,13 +1,13 @@
 import { View } from 'react-native';
 import { Text} from '@rneui/themed';
 
-function Home() {
+function Auth () {
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Auth</Text>
     </View>
   );
 };
 
-export default Home;
+export default Auth;
