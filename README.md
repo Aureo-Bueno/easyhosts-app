@@ -23,10 +23,12 @@ Open [expo://](expo://) to view it in the mobile.
 ├── @types
 ├── components
     ├── button
+├── context
 ├── hooks
 ├── routes
 ├── screens
     ├── pages
+        ├── context
         ├── components
         ├── styles
         ├── types
