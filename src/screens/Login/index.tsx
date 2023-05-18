@@ -17,7 +17,6 @@ function Login({ navigation }: INavigation) {
     mutate({
       email,
       password,
-      id: ''
     }, {
       onSuccess: (userData: IUser) => {
         setUser(userData);
@@ -41,7 +40,6 @@ function Login({ navigation }: INavigation) {
       <S.ContainerHeader animation="fadeInLeft" delay={500}>
         <S.Message>Bem-vindo(a)</S.Message>
       </S.ContainerHeader>
-
       <S.ContainerForms animation="fadeInUp">
         <S.Title>Email</S.Title>
         <S.Input
@@ -54,7 +52,6 @@ function Login({ navigation }: INavigation) {
           secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
         />
-
         <Button
           title='Entrar'
           titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
