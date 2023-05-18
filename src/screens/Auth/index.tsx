@@ -17,7 +17,7 @@ function Auth() {
       <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
         <S.BlockContainer>
           <S.BlockFat>
-            <S.BlockTextName>Olá { user?.id},</S.BlockTextName>
+            <S.BlockTextName>Olá { user?.email },</S.BlockTextName>
             <S.BlockTextHotel>Bem vindo ao Hotel do Papa</S.BlockTextHotel>
             <Button
               title="Avaliar"
