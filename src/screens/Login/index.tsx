@@ -40,7 +40,7 @@ function Login({ navigation }: INavigation) {
             backgroundColor: '#04091D',
             width: '100%',
             borderRadius: 5,
-            marginTop: 45,
+            marginTop: 25,
             paddingVertical: 18,
             justifyContent: 'center',
             alignItems: 'center',
