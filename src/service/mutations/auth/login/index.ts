@@ -1,12 +1,8 @@
 import { useMutation } from 'react-query';
 import { axiosClient } from '../../..';
+import { IUser } from '../../../@types/user';
 
-interface ILogin {
-  email: string,
-  password: string
-}
-
-export const login = async ({ email, password} : ILogin) => {
+export const login = async ({ email, password} : IUser) => {
   const { data } = await axiosClient.post(`/api/easyhosts/Account/login`, {email, password});
   return data;
 }

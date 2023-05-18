@@ -1,7 +1,11 @@
 import { Button } from '@rneui/themed';
 import * as S from './styles';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 function Auth() {
+  const { user } = useContext(AuthContext);
+
   return (
     <S.Container>
       <S.Header>
@@ -13,7 +17,7 @@ function Auth() {
       <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
         <S.BlockContainer>
           <S.BlockFat>
-            <S.BlockTextName>Olá Luiz,</S.BlockTextName>
+            <S.BlockTextName>Olá { user?.email},</S.BlockTextName>
             <S.BlockTextHotel>Bem vindo ao Hotel do Papa</S.BlockTextHotel>
             <Button
               title="Avaliar"
