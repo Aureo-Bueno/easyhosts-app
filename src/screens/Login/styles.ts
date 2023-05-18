@@ -2,33 +2,27 @@ import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
 import { Input as InputRnui} from '@rneui/themed';
 
-export const Container = styled.View`
+export const Container = styled(Animatable.View)`
   flex: 1;
+  align-items: center;
+  justify-content: center;
   background-color: #04091D;
 `;
 
-export const ContainerHeader = styled(Animatable.View)`
-  margin-top: 20%;
-  margin-bottom: 10%;
-  padding-right: 5%;
-`;
+export const ContainerHeader = styled(Animatable.View)``;
 
 export const Message = styled.Text`
+  margin-bottom: 25px;
   font-size: 28px;
   font-weight: bold;
   color: #FFF;
 `;
 
 export const ContainerForms = styled(Animatable.View)`
+  width: 90%;
   background-color: #FFF;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  padding-right: 5px;
-  padding-left: 5px;
-  padding-top: 10px;
-  padding-bottom: 30px;
+  border-radius: 10px;
+  padding: 20px;
 `;
 
 export const Title = styled.Text`
