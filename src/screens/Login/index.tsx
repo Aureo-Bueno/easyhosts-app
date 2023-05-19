@@ -1,38 +1,57 @@
 import { Alert } from 'react-native';
 import { Text, Button } from '@rneui/themed';
 import * as S from './styles';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { INavigation } from '../../@types';
 import { useLoginMutation } from '../../service/mutations/auth/login';
+import { AuthContext } from '../../context/AuthContext';
+import { IUser } from '../../service/@types/user';
 
 function Login({ navigation }: INavigation) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const { isError, mutate, isLoading } = useLoginMutation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { mutate, isLoading } = useLoginMutation();
+  const { setUser } = useContext(AuthContext);
+
+  const handleLogin = () => {
+    mutate({
+      email,
+      password,
+    }, {
+      onSuccess: (userData: IUser) => {
+        setUser(userData);
+        navigation.navigate('Auth');
+      },
+      onError: () => {
+        Alert.alert('Erro ao fazer Login!', 'Tente novamente mais tarde!', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
+      }
+    });
+  }
 
   return (
     <S.Container>
       <S.ContainerHeader animation="fadeInLeft" delay={500}>
         <S.Message>Bem-vindo(a)</S.Message>
       </S.ContainerHeader>
-
-      {isError && (
-        <Text>Ocorreu um erro</Text>
-      )}
-
       <S.ContainerForms animation="fadeInUp">
-        <S.Title >Email</S.Title>
+        <S.Title>Email</S.Title>
         <S.Input
           placeholder='Digite seu e-mail'
           onChangeText={(text) => setEmail(text)}
         />
-
         <S.Title>Senha</S.Title>
         <S.Input
           placeholder='Digite sua senha'
+          secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
         />
-
         <Button
           title='Entrar'
           titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
@@ -45,21 +64,7 @@ function Login({ navigation }: INavigation) {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          onPress={() => mutate({ email, password }, {
-            onSuccess: () => {
-              navigation.navigate('Auth');
-            },
-            onError: () => {
-              Alert.alert('Erro ao fazer Login!', 'Tente novamente mais tarde!', [
-                {
-                  text: 'Cancel',
-                  onPress: () => console.log('Cancel Pressed'),
-                  style: 'cancel',
-                },
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-              ]);
-            }
-          })}
+          onPress={handleLogin}
           loading={isLoading}
         />
       </S.ContainerForms>
