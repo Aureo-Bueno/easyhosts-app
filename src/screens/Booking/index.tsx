@@ -1,6 +1,7 @@
-import { Button } from '@rneui/themed';
 import * as S from './styles';
-import { useContext, useEffect } from 'react';
+import Menu from '../../components/Menu';
+import { Button } from '@rneui/themed';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { useGetBookingId, IBooking } from '../../service/queries/booking';
@@ -16,7 +17,7 @@ function Booking() {
   };
 
   const handleGoRoomService = () => {
-    // navigation.navigate('OrderService' as never);
+    navigation.navigate('OrderService' as never);
   };
 
   if (isLoading) {
@@ -37,14 +38,7 @@ function Booking() {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.MenuIcon name="menu-outline" size={24} />
-        <S.Logo source={require('../../assets/logo.jpg')} />
-        <S.MenuIcon name="notifications-outline" size={24} />
-      </S.Header>
-      <S.HeaderTextContainer>
-        <S.HeaderText>Informações</S.HeaderText>
-      </S.HeaderTextContainer>
+      <Menu headerText="Informações" />
       <S.ContentContainer>
         <FlatList
           data={data}

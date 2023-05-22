@@ -3,7 +3,7 @@ import Auth from '../screens/Auth';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Booking from '../screens/Booking';
-
+import OrderServices from '../screens/OrderServices';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -14,6 +14,7 @@ function AuthRoutes() {
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Auth" component={Auth} />
       <AuthStack.Screen name="Booking" component={Booking} />
+      <AuthStack.Screen name="OrderServices" component={OrderServices} />
     </AuthStack.Navigator>
   );
 }

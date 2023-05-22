@@ -1,5 +1,6 @@
-import { Button } from '@rneui/themed';
 import * as S from './styles';
+import Menu from '../../components/Menu';
+import { Button } from '@rneui/themed';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
@@ -14,16 +15,12 @@ function Auth() {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.MenuIcon name="menu-outline" size={24} />
-        <S.Logo source={require('../../assets/logo.jpg')} />
-        <S.MenuIcon name="notifications-outline" size={24} />
-      </S.Header>
+      <Menu headerText="Início" />
 
       <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
         <S.BlockContainer>
           <S.BlockFat>
-            <S.BlockTextName>Olá { user?.email },</S.BlockTextName>
+            <S.BlockTextName>Olá {user?.email},</S.BlockTextName>
             <S.BlockTextHotel>Bem vindo ao Hotel</S.BlockTextHotel>
             <Button
               title="Avaliar"
