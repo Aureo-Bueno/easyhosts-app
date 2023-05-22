@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 export interface IBooking {
-  id: number,
+  id: string,
   name: string
 }
 
