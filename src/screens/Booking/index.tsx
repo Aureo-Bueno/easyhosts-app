@@ -1,37 +1,15 @@
 import { Button } from '@rneui/themed';
 import * as S from './styles';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useQuery } from 'react-query';
 import { useNavigation } from '@react-navigation/native';
-import { useGetId } from '../../service/queries/booking/axios';
-import { AxiosError } from 'axios';
-import { ActivityIndicator } from 'react-native';
-
-interface BookingDTO {
-  id: number,
-  name: string
-}
+import { useGetBookingId, IBooking } from '../../service/queries/booking';
+import { ActivityIndicator, FlatList } from 'react-native';
 
 function Booking() {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext);
-
-  const fetchBookingData = async (id: string) => {
-    return useGetId(id);
-  };
-
-  const { data, isLoading, isError, error } = useQuery<BookingDTO[], AxiosError>(
-    ['getBooking', user?.id], () => fetchBookingData(user?.id || '')
-  );
-
-  if (isLoading) {
-    return <ActivityIndicator size="large" color="#0000ff"/>;
-  }
-
-  if (isError) {
-    return <p>Error: {error?.message}</p>;
-  }
+  const { data, isLoading, isError, error } = useGetBookingId(user?.id!);
 
   const handleGoHome = () => {
     navigation.navigate('Auth' as never);
@@ -40,6 +18,22 @@ function Booking() {
   const handleGoRoomService = () => {
     // navigation.navigate('OrderService' as never);
   };
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+
+  if (isError) {
+    return <div>Ocorreu um erro: {error.message}</div>;
+  }
+
+  const renderItem = ({ item }: { item: IBooking }) => (
+    <S.Card>
+      <S.Title>Reserva</S.Title>
+      <S.InfoText>ID: {item.id}</S.InfoText>
+      <S.InfoText>Name: {item.name}</S.InfoText>
+    </S.Card>
+  );
 
   return (
     <S.Container>
@@ -52,15 +46,11 @@ function Booking() {
         <S.HeaderText>Informações</S.HeaderText>
       </S.HeaderTextContainer>
       <S.ContentContainer>
-        <S.Card>
-          <S.Title>Reserva</S.Title>
-          {data && data.map((booking) => (
-            <div key={booking.id}>
-              <S.InfoText>ID: {booking.id}</S.InfoText>
-              <S.InfoText>Name: {booking.name}</S.InfoText>
-            </div>
-          ))}
-        </S.Card>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
         <S.ButtonContainer>
           <Button onPress={handleGoHome}>
             <S.ButtonText>Voltar para Home</S.ButtonText>
