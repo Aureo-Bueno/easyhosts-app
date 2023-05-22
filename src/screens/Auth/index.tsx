@@ -2,9 +2,15 @@ import { Button } from '@rneui/themed';
 import * as S from './styles';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 function Auth() {
+  const navigation = useNavigation();
   const { user } = useContext(AuthContext);
+
+  const handleGoBooking = () => {
+    navigation.navigate('Booking' as never);
+  };
 
   return (
     <S.Container>
@@ -18,7 +24,7 @@ function Auth() {
         <S.BlockContainer>
           <S.BlockFat>
             <S.BlockTextName>Olá { user?.email },</S.BlockTextName>
-            <S.BlockTextHotel>Bem vindo ao Hotel do Papa</S.BlockTextHotel>
+            <S.BlockTextHotel>Bem vindo ao Hotel</S.BlockTextHotel>
             <Button
               title="Avaliar"
               titleStyle={{ fontWeight: 'bold', fontSize: 18, color: '#04091D' }}
@@ -34,7 +40,7 @@ function Auth() {
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block>
+          <S.Block onPress={handleGoBooking}>
             <S.MenuIconBlock name="bed-outline" size={48} />
             <S.CardBlockText>Serviço de Quarto</S.CardBlockText>
           </S.Block>
