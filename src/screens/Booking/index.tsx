@@ -1,19 +1,37 @@
 import { Button } from '@rneui/themed';
 import * as S from './styles';
 import { useContext } from 'react';
-import { BookingContext } from '../../context/BookingContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useQuery } from 'react-query';
 import { useNavigation } from '@react-navigation/native';
+import { useGetId } from '../../service/queries/booking/axios';
+import { AxiosError } from 'axios';
+import { ActivityIndicator } from 'react-native';
+
+interface BookingDTO {
+  id: number,
+  name: string
+}
 
 function Booking() {
   const navigation = useNavigation();
-  const { user } = useContext(BookingContext);
+  const { user } = useContext(AuthContext);
 
-  const reservation = {
-    cpf: '123.456.789-00',
-    valorPago: 'R$ 500,00',
-    checkin: '19/05/2023',
-    checkout: '22/05/2023',
+  const fetchBookingData = async (id: string) => {
+    return useGetId(id);
   };
+
+  const { data, isLoading, isError, error } = useQuery<BookingDTO[], AxiosError>(
+    ['getBooking', user?.id], () => fetchBookingData(user?.id || '')
+  );
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" color="#0000ff"/>;
+  }
+
+  if (isError) {
+    return <p>Error: {error?.message}</p>;
+  }
 
   const handleGoHome = () => {
     navigation.navigate('Auth' as never);
@@ -36,12 +54,12 @@ function Booking() {
       <S.ContentContainer>
         <S.Card>
           <S.Title>Reserva</S.Title>
-          <S.InfoText>Email: {user?.email}</S.InfoText>
-          <S.InfoText>Nome: {user?.name}</S.InfoText>
-          <S.InfoText>CPF: {reservation.cpf}</S.InfoText>
-          <S.InfoText>Valor Pago: {reservation.valorPago}</S.InfoText>
-          <S.InfoText>Checkin: {reservation.checkin}</S.InfoText>
-          <S.InfoText>Checkout: {reservation.checkout}</S.InfoText>
+          {data && data.map((booking) => (
+            <div key={booking.id}>
+              <S.InfoText>ID: {booking.id}</S.InfoText>
+              <S.InfoText>Name: {booking.name}</S.InfoText>
+            </div>
+          ))}
         </S.Card>
         <S.ButtonContainer>
           <Button onPress={handleGoHome}>
