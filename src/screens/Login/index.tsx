@@ -14,26 +14,29 @@ function Login({ navigation }: INavigation) {
   const { setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
-    mutate({
-      email,
-      password,
-    }, {
-      onSuccess: (userData: IUser) => {
-        setUser(userData);
-        navigation.navigate('Auth');
+    mutate(
+      {
+        email,
+        password,
       },
-      onError: () => {
-        Alert.alert('Erro ao fazer Login!', 'Tente novamente mais tarde!', [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ]);
+      {
+        onSuccess: (userData: IUser) => {
+          setUser(userData);
+          navigation.navigate('Home');
+        },
+        onError: () => {
+          Alert.alert('Erro ao fazer Login!', 'Tente novamente mais tarde!', [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ]);
+        },
       }
-    });
-  }
+    );
+  };
 
   return (
     <S.Container>
@@ -42,18 +45,15 @@ function Login({ navigation }: INavigation) {
       </S.ContainerHeader>
       <S.ContainerForms animation="fadeInUp">
         <S.Title>Email</S.Title>
-        <S.Input
-          placeholder='Digite seu e-mail'
-          onChangeText={(text) => setEmail(text)}
-        />
+        <S.Input placeholder="Digite seu e-mail" onChangeText={(text) => setEmail(text)} />
         <S.Title>Senha</S.Title>
         <S.Input
-          placeholder='Digite sua senha'
+          placeholder="Digite sua senha"
           secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
         />
         <Button
-          title='Entrar'
+          title="Entrar"
           titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
           buttonStyle={{
             backgroundColor: '#04091D',
@@ -70,6 +70,6 @@ function Login({ navigation }: INavigation) {
       </S.ContainerForms>
     </S.Container>
   );
-};
+}
 
 export default Login;

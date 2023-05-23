@@ -8,13 +8,17 @@ function Welcome({ navigation }: INavigation) {
   return (
     <S.Container>
       <S.ContainerLogo>
-        <Animatable.Image animation="flipInY" source={require('../../assets/logo.jpg')} style={{ width: '100%' }} resizeMode="contain"></Animatable.Image>
+        <Animatable.Image
+          animation="flipInY"
+          source={require('../../assets/logo.jpg')}
+          style={{ width: '100%' }}
+          resizeMode="contain"></Animatable.Image>
       </S.ContainerLogo>
-      <S.ContainerForm delay={600} animation="fadeInUp" >
+      <S.ContainerForm delay={600} animation="fadeInUp">
         <S.Title>Realize reserva sem dor de cabeça!</S.Title>
-        <S.Text >Faça o login para começar</S.Text>
+        <S.Text>Faça o login para começar</S.Text>
         <Button
-          title='Acessar'
+          title="Acessar"
           titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
           buttonStyle={{
             backgroundColor: '#04091D',
@@ -31,6 +35,6 @@ function Welcome({ navigation }: INavigation) {
       </S.ContainerForm>
     </S.Container>
   );
-};
+}
 
 export default Welcome;
