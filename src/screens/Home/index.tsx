@@ -42,12 +42,12 @@ function Home() {
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block onPress={handleGoBooking}>
+          <S.Block onPress={handleOrderService}>
             <S.MenuIconBlock name="bed-outline" size={48} />
             <S.CardBlockText>Serviço de Quarto</S.CardBlockText>
           </S.Block>
 
-          <S.Block onPress={handleOrderService}>
+          <S.Block onPress={handleGoBooking}>
             <S.MenuIconBlock name="newspaper-outline" size={48} />
             <S.CardBlockText>Dados da Reserva</S.CardBlockText>
           </S.Block>
