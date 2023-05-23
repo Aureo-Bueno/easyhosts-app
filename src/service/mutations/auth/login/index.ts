@@ -3,7 +3,7 @@ import { axiosClient } from '../../..';
 import { ILogin } from '../@types';
 
 export const login = async ({ email, password } : ILogin) => {
-  const { data } = await axiosClient.post(`/api/easyhosts/Account/login`, {email, password});
+  const { data } = await axiosClient.post(`Account/login`, {email, password});
   return data;
 }
 

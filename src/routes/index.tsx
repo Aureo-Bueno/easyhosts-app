@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Auth from '../screens/Auth';
+import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Booking from '../screens/Booking';
@@ -12,7 +12,7 @@ function AuthRoutes() {
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="Welcome" component={Welcome} />
       <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="Auth" component={Auth} />
+      <AuthStack.Screen name="Home" component={Home} />
       <AuthStack.Screen name="Booking" component={Booking} />
       <AuthStack.Screen name="OrderServices" component={OrderServices} />
     </AuthStack.Navigator>

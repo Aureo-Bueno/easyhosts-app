@@ -3,19 +3,19 @@ import * as Animatable from 'react-native-animatable';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #04091D;
+  background-color: #04091d;
 `;
 
 export const ContainerLogo = styled.View`
   flex: 2;
-  background-color: #04091D;
+  background-color: #04091d;
   justify-content: center;
   align-items: center;
 `;
 
 export const ContainerForm = styled(Animatable.View)`
   flex: 1;
-  background-color: #FFF;
+  background-color: #fff;
   border-top-right-radius: 25px;
   border-top-right-radius: 25px;
   padding: 0 5% 0 5%;
