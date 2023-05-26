@@ -13,7 +13,7 @@ export interface IOrderServicesResponse {
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`OrderService`);
+    const response = await axiosClient.get(`/OrderService`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -22,7 +22,7 @@ export const useGet = async () => {
 };
 
 export const useGetId = async (id: string | undefined) => {
-  const response = await axiosClient.get(`OrderService/getOrderServiceByUserId/${id}`);
+  const response = await axiosClient.get(`/OrderService/getOrderServiceByUserId/${id}`);
   return response.data;
 };
 

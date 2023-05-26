@@ -1,9 +1,9 @@
 import { useMutation } from 'react-query';
 import { axiosClient } from '../../..';
-import { IOrderServices } from '../@types';
+import { IOrderService } from '../../../@types/orderService';
 
-export const orderServices = async ({description, userId, employeeId, status, type} : IOrderServices) => {
-  const { data } = await axiosClient.post(`OrderServices`, {description, userId, employeeId, status, type});
+export const orderServices = async ({description, userId, employeeId, status, service} : IOrderService ) => {
+  const { data } = await axiosClient.post('/OrderService', {description, userId, employeeId, status, service});
   return data;
 }
 

@@ -1,19 +1,14 @@
 import Menu from '../../components/Menu';
 import * as S from './styles';
-import { View } from 'react-native';
+import { FlatList, TextInput, View } from 'react-native';
 import { Text } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
-/*
-Dados backend:
- public string Description (campo na tela)
- public Guid UserId (usuario id)
- public Guid EmployeeId - estatico (passar chumbado)
- public StatusOrderService - estatico (status enviado)
- public OrderServiceType Type - (limpeza, manutencao ou food )
-*/
+import { IBookingResponse, useGetBookingId } from '../../service/queries/booking';
+import { AuthContext } from '../../context/AuthContext';
+import { useOrderServicesMutation } from '../../service/mutations/orderServices/services';
+import { IOrderService, typeService, typeStatus } from '../../service/@types/orderService';
 
 function OrderServices() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,6 +47,59 @@ function OrderServices() {
     Fazendo: { icon: 'ios-construct', color: 'orange' },
     Concluido: { icon: 'ios-checkmark-circle', color: 'green' },
     Cancelado: { icon: 'ios-close-circle', color: 'red' },
+  };
+
+  const { user } = useContext(AuthContext);
+  const { data } = useGetBookingId(user?.id);
+  const renderItem = ({ item }: { item: IBookingResponse }) => (
+    <Text>
+      Forneça uma breve descrição do pedido de{' '}
+      {selectedService && 'service' in selectedService ? selectedService.service : ''} para o seu
+      quarto número {item.codeBooking}.
+    </Text>
+  );
+
+  const [description, setDescription] = useState('');
+  const [userId, setUserId] = useState('');
+  const [employeeId, setEmployee] = useState('');
+  // const [status, setStatus] = useState('');
+  // const [service, setType] = useState('');
+
+  const { mutate, isLoading } = useOrderServicesMutation();
+
+  const handlePostService = () => {
+    mutate(
+      {
+        description,
+        userId,
+        employeeId,
+        status: typeStatus.INPROGRESS,
+        service: typeService.MAINTENANCE,
+      },
+      {
+        onSuccess: (orderData: IOrderService) => {
+          // setValue(orderData);
+          Alert.alert('Ordem de serviço', 'Cadastrado!', [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ]);
+        },
+        onError: (error) => {
+          Alert.alert('Erro ao cadastrar!', `Tente novamente mais tarde!`, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ]);
+        },
+      }
+    );
   };
 
   return (
@@ -105,17 +153,85 @@ function OrderServices() {
           }}>
           <View style={{ backgroundColor: '#FFF', padding: 20, borderRadius: 10 }}>
             <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
-              Confirme o pedido de serviço
+              Solicitação de serviço
             </Text>
-            <Text style={{ marginBottom: 20 }}>
-              Você deseja confirmar o pedido de{' '}
-              {selectedService && 'service' in selectedService ? selectedService.service : ''} para
-              o seu quarto 31?
-            </Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <FlatList
+              style={{
+                flexGrow: 0,
+              }}
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.codeBooking.toString()}
+            />
+
+            <TextInput
+              style={{
+                borderWidth: 1,
+                height: 40,
+                fontSize: 16,
+                borderRadius: 5,
+                marginTop: 15,
+                paddingHorizontal: 10,
+                borderColor: '#d5d5d5',
+              }}
+              placeholder="Descrição"
+              onChangeText={(description) => {
+                setDescription(description);
+              }}
+              value={description}
+            />
+            <TextInput
+              style={{
+                borderWidth: 1,
+                height: 40,
+                fontSize: 16,
+                borderRadius: 5,
+                marginTop: 15,
+                paddingHorizontal: 10,
+                borderColor: '#d5d5d5',
+              }}
+              placeholder="Usuário"
+              onChangeText={(userId) => {
+                setUserId(userId);
+              }}
+              value={userId}
+            />
+            <TextInput
+              style={{
+                borderWidth: 1,
+                height: 40,
+                fontSize: 16,
+                borderRadius: 5,
+                marginTop: 15,
+                paddingHorizontal: 10,
+                borderColor: '#d5d5d5',
+              }}
+              placeholder="Funcionário"
+              onChangeText={(employeeId) => {
+                setEmployee(employeeId);
+              }}
+              value={employeeId}
+            />
+            {/* <TextInput
+              style={{ backgroundColor: 'grey', borderWidth: 1, marginTop: 5 }}
+              placeholder="STATUS"
+              onChangeText={(status) => {
+                setStatus(status);
+              }}
+              value={status}
+            />
+            <TextInput
+              style={{ backgroundColor: 'grey', borderWidth: 1, marginTop: 5 }}
+              placeholder="TIPO"
+              onChangeText={(type) => {
+                setType(type);
+              }}
+              value={type}
+            /> */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
               <TouchableOpacity
                 style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}
-                onPress={handleConfirmService}>
+                onPress={handlePostService}>
                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Confirmar</Text>
               </TouchableOpacity>
               <TouchableOpacity

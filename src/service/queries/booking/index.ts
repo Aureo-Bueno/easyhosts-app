@@ -16,7 +16,7 @@ export interface IBookingResponse {
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`Booking`);
+    const response = await axiosClient.get(`/Booking`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -25,7 +25,7 @@ export const useGet = async () => {
 };
 
 export const useGetId = async (id: string | undefined) => {
-  const response = await axiosClient.get(`Booking/getBookingByUserId/${id}`);
+  const response = await axiosClient.get(`/Booking/getBookingByUserId/${id}`);
   return response.data;
 };
 
