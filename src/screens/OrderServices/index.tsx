@@ -15,15 +15,12 @@ function OrderServices() {
   const [statusList, setStatusList] = useState<
     { service: string; timestamp: string; status: string }[]
   >([]);
-  const [selectedService, setSelectedService] = useState<
-    { service: string; timestamp: string; status: string } | {}
-  >({});
 
-  const handleServiceClick = (service: string) => {
+  const [selectedService, setSelectedService] = useState<{ service:typeService } | {}>({});
+
+  const handleServiceClick = (service: typeService) => {
     setSelectedService({
       service: service,
-      timestamp: new Date().toLocaleString(),
-      status: 'EmEspera',
     });
     setModalVisible(true);
   };
@@ -60,21 +57,20 @@ function OrderServices() {
   );
 
   const [description, setDescription] = useState('');
-  const [userId, setUserId] = useState('');
-  const [employeeId, setEmployee] = useState('');
-  // const [status, setStatus] = useState('');
-  // const [service, setType] = useState('');
 
   const { mutate, isLoading } = useOrderServicesMutation();
 
   const handlePostService = () => {
+
+    const { service } = selectedService as { service: typeService };
+
     mutate(
       {
         description,
-        userId,
-        employeeId,
-        status: typeStatus.INPROGRESS,
-        service: typeService.MAINTENANCE,
+        userId: user?.id,
+        employeeId: null,
+        status: typeStatus.OPEN,
+        services: service,
       },
       {
         onSuccess: (orderData: IOrderService) => {
@@ -107,19 +103,19 @@ function OrderServices() {
       <Menu headerText="Serviços" />
       <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick('Limpeza')}>
-            <S.BlockText>Limpeza</S.BlockText>
+            <S.Block onPress={() => handleServiceClick(typeService.CLEANING)}>
+            <S.BlockText>Limpeza ${typeService.CLEANING}</S.BlockText>
           </S.Block>
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick('Manutenção')}>
+          <S.Block onPress={() => handleServiceClick(typeService.MAINTENANCE)}>
             <S.BlockText>Manutenção</S.BlockText>
           </S.Block>
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick('Alimentação')}>
+          <S.Block onPress={() => handleServiceClick(typeService.FOOD)}>
             <S.BlockText>Alimentação</S.BlockText>
           </S.Block>
         </S.BlockContainer>
@@ -180,54 +176,6 @@ function OrderServices() {
               }}
               value={description}
             />
-            <TextInput
-              style={{
-                borderWidth: 1,
-                height: 40,
-                fontSize: 16,
-                borderRadius: 5,
-                marginTop: 15,
-                paddingHorizontal: 10,
-                borderColor: '#d5d5d5',
-              }}
-              placeholder="Usuário"
-              onChangeText={(userId) => {
-                setUserId(userId);
-              }}
-              value={userId}
-            />
-            <TextInput
-              style={{
-                borderWidth: 1,
-                height: 40,
-                fontSize: 16,
-                borderRadius: 5,
-                marginTop: 15,
-                paddingHorizontal: 10,
-                borderColor: '#d5d5d5',
-              }}
-              placeholder="Funcionário"
-              onChangeText={(employeeId) => {
-                setEmployee(employeeId);
-              }}
-              value={employeeId}
-            />
-            {/* <TextInput
-              style={{ backgroundColor: 'grey', borderWidth: 1, marginTop: 5 }}
-              placeholder="STATUS"
-              onChangeText={(status) => {
-                setStatus(status);
-              }}
-              value={status}
-            />
-            <TextInput
-              style={{ backgroundColor: 'grey', borderWidth: 1, marginTop: 5 }}
-              placeholder="TIPO"
-              onChangeText={(type) => {
-                setType(type);
-              }}
-              value={type}
-            /> */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
               <TouchableOpacity
                 style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}

@@ -1,9 +1,9 @@
 export interface IOrderService {
   description: string;
-  userId: string;
+  userId: string | undefined;
   employeeId: string | null ;
   status: typeStatus;
-  service: typeService;
+  services: typeService;
 }
 
 export enum typeStatus {
@@ -16,7 +16,7 @@ export enum typeStatus {
 export enum typeService {
   CLEANING = 1,
   MAINTENANCE = 2,
-  FOOD = 3,
+  FOOD = 3
 }
 
 
