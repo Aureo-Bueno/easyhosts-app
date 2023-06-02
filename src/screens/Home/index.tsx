@@ -25,7 +25,7 @@ function Home() {
       <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
         <S.BlockContainer>
           <S.BlockFat>
-            <S.BlockTextName>Olá {user?.email},</S.BlockTextName>
+            <S.BlockTextName>Olá {user?.user.userName},</S.BlockTextName>
             <S.BlockTextHotel>Bem vindo ao Hotel</S.BlockTextHotel>
             <Button
               title="Avaliar"

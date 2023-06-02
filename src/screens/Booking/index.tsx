@@ -11,7 +11,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 function Booking() {
   const navigation = useNavigation<NavigationStackProp>();
   const { user } = useContext(AuthContext);
-  const { data, isLoading, isError, error } = useGetBookingId(user?.id);
+  const { data, isLoading, isError, error } = useGetBookingId(user?.user.id);
 
   const handleGoHome = () => {
     navigation.navigate('Home');
@@ -35,7 +35,7 @@ function Booking() {
       <S.InfoText>Code: {item.codeBooking}</S.InfoText>
       <S.InfoText>Checkint: {item.checkin}</S.InfoText>
       <S.InfoText>Checkout: {item.checkout}</S.InfoText>
-      <S.InfoText>User: {item.userId}</S.InfoText>
+      <S.InfoText>User: {item.user.userName}</S.InfoText>
     </S.Card>
   );
 

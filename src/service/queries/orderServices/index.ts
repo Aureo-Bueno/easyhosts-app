@@ -3,12 +3,16 @@ import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 
 export interface IOrderServices {
-  id: string;
-  name: string;
+  id: string,
+  name: string,
 }
 
 export interface IOrderServicesResponse {
-  description: string;
+  id: string,
+  description: string,
+  userId: string,
+  status: string,
+
 }
 
 export const useGet = async () => {
@@ -26,5 +30,5 @@ export const useGetId = async (id: string | undefined) => {
   return response.data;
 };
 
-export const useGetOrderServiceId = (id: string | undefined) =>
+export const useGetOrderServiceById = (id: string | undefined) =>
   useQuery<IOrderServicesResponse[], AxiosError>('getOrderServiceByUserId', () => useGetId(id));

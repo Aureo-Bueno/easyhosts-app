@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react';
 import { INavigation } from '../../@types';
 import { useLoginMutation } from '../../service/mutations/auth/login';
 import { AuthContext } from '../../context/AuthContext';
-import { IUser } from '../../service/@types/user';
+import { IUserRole } from '../../service/@types/user';
 
 function Login({ navigation }: INavigation) {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ function Login({ navigation }: INavigation) {
         password,
       },
       {
-        onSuccess: (userData: IUser) => {
+        onSuccess: (userData: IUserRole) => {
           setUser(userData);
           navigation.navigate('Home');
         },

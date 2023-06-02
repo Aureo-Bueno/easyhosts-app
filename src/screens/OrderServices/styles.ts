@@ -6,7 +6,7 @@ flex: 1;
 background-color: #F4F4F4;
 `;
 
-export const ContentContainer = styled.ScrollView`
+export const ContentContainer = styled.View`
 flex: 1;
 padding: 20px;
 `;
@@ -23,10 +23,10 @@ margin-bottom: 20px;
 `;
 
 export const Block = styled.TouchableOpacity`
-height: 80px;
+height: 45px;
 background-color: #04091D;
 border-radius: 10px;
-padding: 20px;
+padding: 5px;
 justify-content: center;
 `;
 
@@ -43,12 +43,13 @@ export const Input = styled(InputRnui)`
 
 export const BlockText = styled.Text`
 color: #FFF;
-font-size: 18px;
+font-size: 12px;
+text-align: center;
 `;
 
-export const StatusSection = styled.View`
-margin-top: 40px;
-`;
+// export const StatusSection = styled.View`
+// margin-top: 40px;
+// `;
 
 export const StatusTitle = styled.Text`
 color: #04091D;

@@ -1,17 +1,19 @@
 import { axiosClient } from '../../';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
+import { IUser } from '../../@types/user';
 
 export interface IBooking {
-  id: string;
-  name: string;
+  id: string,
+  name: string,
 }
 
 export interface IBookingResponse {
-  codeBooking: string;
-  checkin: string;
-  checkout: string;
-  userId: string;
+  codeBooking: string,
+  checkin: string,
+  checkout: string,
+  userId: string,
+  user: IUser,
 }
 
 export const useGet = async () => {
