@@ -1,33 +1,27 @@
 import Menu from '../../components/Menu';
 import * as S from './styles';
-import { FlatList, View } from 'react-native';
+import {
+  FlatList,
+  View } from 'react-native';
 import { Text } from '@rneui/themed';
-import React, { useContext, useState } from 'react';
-import { Alert } from 'react-native';
-import { IBookingResponse, useGetBookingId } from '../../service/queries/booking';
+import React,
+{ useContext,
+  useState }
+from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useOrderServicesMutation } from '../../service/mutations/orderServices/services';
-import { IOrderService, typeService } from '../../service/@types/orderService';
 import {
   IOrderServicesResponse,
   useGetOrderServiceById,
 } from '../../service/queries/orderServices';
 import Modal from '../../components/Modal';
+import { TypeService } from '../../service/@types/orderService';
 
 function OrderServices() {
-  const [selectedService, setSelectedService] = useState<{ service: typeService } | {}>({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [typeService, setTypeService] = useState<TypeService>();
   const { user } = useContext(AuthContext);
-  const { data: dataService } = useGetBookingId(user?.user.id);
-  const renderItemTypeServiceId = ({ item }: { item: IBookingResponse }) => (
-    <Text>
-      Forneça uma breve descrição do pedido de{' '}
-      {selectedService && 'service' in selectedService ? selectedService.service : ''} para o seu
-      quarto número {item.codeBooking}.
-    </Text>
-  );
-
   const { data: dataStatus } = useGetOrderServiceById(user?.user.id);
+
   const renderItemStatusService = ({ item }: { item: IOrderServicesResponse }) => (
     <View>
       <Text>
@@ -36,40 +30,33 @@ function OrderServices() {
     </View>
   );
 
-  const [description, setDescription] = useState('');
-
-  const { mutate, isLoading } = useOrderServicesMutation();
-
-  const handleServiceClick = (service: typeService) => {
-    setSelectedService({
-      service: service,
-    });
+  const handleServiceClick = (service: TypeService) => {
+    setTypeService(service);
     setModalVisible(true);
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    setSelectedService({});
   };
 
   return (
     <S.Container>
-      <Menu headerText="Serviços" />
+      <Menu headerText='Serviços' />
       <S.ContentContainer>
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(typeService.CLEANING)}>
+          <S.Block onPress={() => handleServiceClick(TypeService.CLEANING)}>
             <S.BlockText>Limpeza </S.BlockText>
           </S.Block>
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(typeService.MAINTENANCE)}>
+          <S.Block onPress={() => handleServiceClick(TypeService.MAINTENANCE)}>
             <S.BlockText>Manutenção</S.BlockText>
           </S.Block>
         </S.BlockContainer>
 
         <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(typeService.FOOD)}>
+          <S.Block onPress={() => handleServiceClick(TypeService.FOOD)}>
             <S.BlockText>Alimentação</S.BlockText>
           </S.Block>
         </S.BlockContainer>
@@ -82,12 +69,13 @@ function OrderServices() {
         />
       </S.ContentContainer>
       <Modal
-        animationType="slide"
+        typeService={typeService}
+        animationType='slide'
         handleCloseModal={handleCloseModal}
         handleServiceClick={handleServiceClick}
         transparent={true}
         userId={user?.user.id}
-        visible={false}
+        visible={modalVisible}
       />
     </S.Container>
   );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base = 'http://192.168.0.19:3000/api/easyhosts';
+const base = 'http://172.20.10.2:3000/api/easyhosts';
 
 export const axiosClient = axios.create({
   baseURL: base,

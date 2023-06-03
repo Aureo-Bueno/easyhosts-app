@@ -1,53 +1,43 @@
 import { useState } from 'react';
-import { TouchableOpacity, Modal as NAModal, View, TextInput, Text, Alert } from 'react-native';
+import { Modal as NAModal, View, TextInput, Text, Alert } from 'react-native';
 import { useOrderServicesMutation } from '../../service/mutations/orderServices/services';
-import { IOrderService, typeService } from '../../service/@types/orderService';
+import { IOrderService, TypeService } from '../../service/@types/orderService';
+import Button from '../Button';
+import * as S from './styles';
+import { IModal } from './types';
 
-interface IModal {
-  visible: boolean;
-  animationType: Animation;
-  transparent: boolean;
-  userId: string | undefined;
-  handleServiceClick: (service: typeService) => void;
-  handleCloseModal: () => void;
-}
-
-type Animation = 'none' | 'slide' | 'fade' | undefined;
-
-function Modal({ animationType, transparent, visible, handleCloseModal, userId }: IModal) {
+function Modal({ animationType, transparent, visible, handleCloseModal, userId, typeService }: IModal) {
   const [description, setDescription] = useState('');
-  const [selectedService, setSelectedService] = useState<{ service: typeService } | {}>({});
+  const [selectedService, setSelectedService] = useState<TypeService>();
   const { mutate, isLoading } = useOrderServicesMutation();
 
   const handlePostService = () => {
-    const { service } = selectedService as { service: typeService };
     mutate(
       {
         description,
         userId: userId,
         employeeId: null,
-        type: service,
+        typeService: selectedService,
       },
       {
-        onSuccess: (orderData: IOrderService) => {
-          // setValue(orderData);
+        onSuccess: () => {
           Alert.alert('Ordem de serviço', 'Cadastrado!', [
             {
               text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
+              onPress: () => handleCloseModal,
               style: 'cancel',
             },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'OK', onPress: () => handleCloseModal },
           ]);
         },
-        onError: (error) => {
+        onError: () => {
           Alert.alert('Erro ao cadastrar!', `Tente novamente mais tarde!`, [
             {
               text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
+              onPress: () => handleCloseModal,
               style: 'cancel',
             },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'OK', onPress: handleCloseModal },
           ]);
         },
       }
@@ -71,6 +61,9 @@ function Modal({ animationType, transparent, visible, handleCloseModal, userId }
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
             Solicitação de serviço
           </Text>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
+           O seu pedido será de : {typeService === 1 ? 'Limpeza' :  typeService === 2 ? 'Manutenção' : typeService === 3 ? 'Comida' : ''}
+          </Text>
           <TextInput
             style={{
               borderWidth: 1,
@@ -87,18 +80,19 @@ function Modal({ animationType, transparent, visible, handleCloseModal, userId }
             }}
             value={description}
           />
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
-            <TouchableOpacity
-              style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}
-              onPress={handlePostService}>
-              <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Confirmar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ backgroundColor: 'red', padding: 10, borderRadius: 5 }}
-              onPress={handleCloseModal}>
-              <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Cancelar</Text>
-            </TouchableOpacity>
-          </View>
+          {typeService === 3 &&
+            <TextInput />
+          }
+          <S.View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
+            <Button
+              title='Confirmar'
+              onPress={handlePostService}
+            />
+            <Button
+              title='Fechar'
+              onPress={handleCloseModal}
+            />
+          </S.View>
         </View>
       </View>
     </NAModal>

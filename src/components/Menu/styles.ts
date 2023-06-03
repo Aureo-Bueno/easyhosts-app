@@ -6,7 +6,7 @@ export const Header = styled.View`
   padding: 30px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const HeaderTextContainer = styled.View`
@@ -26,7 +26,7 @@ export const Logo = styled.Image`
 
 export const HeaderText = styled.Text`
   color: #FFF;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   margin-top: 10px;
 `;
