@@ -5,6 +5,8 @@ import { IFormLogin } from './types';
 import { AuthContext } from '../../../../context/AuthContext';
 import { IUserRole } from '../../../../service/@types/user';
 import { Alert } from 'react-native';
+import Button from '../../../../components/Button';
+import Input from '../../../../components/Input';
 
 function FormLogin({ setEmail, setPassword, email, password, navigation}:IFormLogin) {
   const { mutate, isLoading } = useLoginMutation();
@@ -44,28 +46,10 @@ function FormLogin({ setEmail, setPassword, email, password, navigation}:IFormLo
   return(
     <S.ContainerForms animation='fadeInUp'>
       <S.Title>Email</S.Title>
-      <S.Input placeholder='Digite seu e-mail' onChangeText={(text) => setEmail(text)} />
+      <Input placeholder='Digite seu e-mail' onChangeText={(text) => setEmail(text)} />
       <S.Title>Senha</S.Title>
-      <S.Input
-        placeholder='Digite sua senha'
-        secureTextEntry={true}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <S.Button
-        title='Entrar'
-        titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
-        buttonStyle={{
-          backgroundColor: '#04091D',
-          width: '100%',
-          borderRadius: 5,
-          marginTop: 25,
-          paddingVertical: 18,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={handleLogin}
-        loading={isLoading}
-      />
+      <Input placeholder='Digite sua senha' secureTextEntry={true} onChangeText={(text) => setPassword(text)}/>
+      <Button title='Entrar' onPress={handleLogin} loading={isLoading} colorBackground='#04091D' size='lg' />
     </S.ContainerForms>
   );
 }

@@ -1,12 +1,13 @@
 import * as S from './styles';
 import Menu from '../../components/Menu';
-import { Button, Text } from '@rneui/themed';
+import { Text } from '@rneui/themed';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { useGetBookingId, IBooking, IBookingResponse } from '../../service/queries/booking';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
+import Button from '../../components/Button';
 
 function Booking() {
   const navigation = useNavigation<NavigationStackProp>();
@@ -49,26 +50,8 @@ function Booking() {
           keyExtractor={(item) => item.codeBooking.toString()}
         />
         <S.ButtonContainer>
-          <Button
-            title="Voltar para Home"
-            onPress={handleGoHome}
-            titleStyle={{ fontWeight: 'bold', fontSize: 16, color: '#04091D' }}
-            buttonStyle={{
-              backgroundColor: '#F8B100',
-              borderRadius: 10,
-              paddingVertical: 12,
-            }}
-          />
-          <Button
-            title="Serviços de Quarto"
-            onPress={handleGoRoomService}
-            titleStyle={{ fontWeight: 'bold', fontSize: 16, color: '#04091D' }}
-            buttonStyle={{
-              backgroundColor: '#F8B100',
-              borderRadius: 10,
-              paddingVertical: 12,
-            }}
-          />
+          <Button colorBackground='#F8B100' size='lg' title='Voltar' onPress={() => handleGoHome()} />
+          <Button colorBackground='#F8B100' size='lg' title='Serviços de Quarto' onPress={() => handleGoRoomService()} />
         </S.ButtonContainer>
       </S.ContainerView>
     </S.Container>

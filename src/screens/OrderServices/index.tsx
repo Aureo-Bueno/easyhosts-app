@@ -17,8 +17,8 @@ import Modal from '../../components/Modal';
 import { TypeService } from '../../service/@types/orderService';
 
 function OrderServices() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [typeService, setTypeService] = useState<TypeService>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [typeService, setTypeService] = useState<TypeService>(TypeService.CLEANING);
   const { user } = useContext(AuthContext);
   const { data: dataStatus } = useGetOrderServiceById(user?.user.id);
 

@@ -7,7 +7,7 @@ export interface IModal {
   userId: string | undefined;
   handleServiceClick: (service: TypeService) => void;
   handleCloseModal: () => void;
-  typeService: TypeService | undefined;
+  typeService: TypeService;
 }
 
 export type Animation = 'none' | 'slide' | 'fade' | undefined;

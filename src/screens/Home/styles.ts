@@ -53,7 +53,7 @@ export const Block = styled.TouchableOpacity`
 
 export const BlockFat = styled.TouchableOpacity`
   width: 100%;
-  height: 250px;
+  height: 175px;
   background-color: #04091d;
   border-radius: 10px;
   padding: 20px;

@@ -1,4 +1,5 @@
-import { Button } from '@rneui/themed';
+// import { Button } from '@rneui/themed';
+import Button from '../../components/Button'
 import * as S from './styles';
 import React from 'react';
 import { INavigation } from '../../@types';
@@ -17,21 +18,7 @@ function Welcome({ navigation }: INavigation) {
       <S.ContainerForm delay={600} animation="fadeInUp">
         <S.Title>Realize reserva sem dor de cabeça!</S.Title>
         <S.Text>Faça o login para começar</S.Text>
-        <Button
-          title="Acessar"
-          titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
-          buttonStyle={{
-            backgroundColor: '#04091D',
-            width: '50%',
-            borderRadius: 5,
-            marginTop: 40,
-            paddingVertical: 18,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onPress={() => navigation.navigate('Login')}
-        />
+        <Button title='Acessar' onPress={() => navigation.navigate('Login')} colorBackground='#04091D' size='lg' />
       </S.ContainerForm>
     </S.Container>
   );

@@ -27,17 +27,6 @@ function Home() {
           <S.BlockFat>
             <S.BlockTextName>Olá {user?.user.userName},</S.BlockTextName>
             <S.BlockTextHotel>Bem vindo ao Hotel</S.BlockTextHotel>
-            <Button
-              title="Avaliar"
-              titleStyle={{ fontWeight: 'bold', fontSize: 18, color: '#04091D' }}
-              buttonStyle={{
-                backgroundColor: '#F8B100',
-                width: '35%',
-                borderRadius: 10,
-                marginTop: 20,
-                paddingVertical: 12,
-              }}
-            />
           </S.BlockFat>
         </S.BlockContainer>
 
