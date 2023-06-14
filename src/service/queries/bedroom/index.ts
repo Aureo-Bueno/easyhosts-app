@@ -39,4 +39,4 @@ export const useDelete = async (id: string) => {
 }
 
 
-export const useGetBedroom = () => useQuery<IBedroom[], AxiosError>('getBedrooms', useGet);
+export const useGetBedroom = () => useQuery<Array<IBedroom>, AxiosError>('getBedrooms', useGet);

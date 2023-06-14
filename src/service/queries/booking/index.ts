@@ -18,8 +18,8 @@ export interface IBookingResponse {
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`/Booking`);
-    return response.data;
+    const { data } = await axiosClient.get<IBookingResponse>(`/Booking`);
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -32,4 +32,4 @@ export const useGetId = async (id: string | undefined) => {
 };
 
 export const useGetBookingId = (id: string | undefined) =>
-  useQuery<IBookingResponse[], AxiosError>('getBookingByUserId', () => useGetId(id));
+  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id));

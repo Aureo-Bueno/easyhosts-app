@@ -12,13 +12,12 @@ export interface IOrderServicesResponse {
   description: string,
   userId: string,
   status: string,
-
 }
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`/OrderService`);
-    return response.data;
+    const { data } = await axiosClient.get<IOrderServicesResponse>(`/OrderService`);
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -26,9 +25,9 @@ export const useGet = async () => {
 };
 
 export const useGetId = async (id: string | undefined) => {
-  const response = await axiosClient.get(`/OrderService/getOrderServiceByUserId/${id}`);
-  return response.data;
+  const { data } = await axiosClient.get(`/OrderService/getOrderServiceByUserId/${id}`);
+  return data;
 };
 
 export const useGetOrderServiceById = (id: string | undefined) =>
-  useQuery<IOrderServicesResponse[], AxiosError>('getOrderServiceByUserId', () => useGetId(id));
+  useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServiceByUserId', () => useGetId(id));

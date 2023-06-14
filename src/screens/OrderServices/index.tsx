@@ -6,6 +6,7 @@ import {
 import { Text } from '@rneui/themed';
 import React,
 { useContext,
+  useEffect,
   useState }
 from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -13,8 +14,8 @@ import {
   IOrderServicesResponse,
   useGetOrderServiceById,
 } from '../../service/queries/orderServices';
-import Modal from '../../components/Modal';
 import { TypeService } from '../../service/@types/orderService';
+import ModalCreateOrderService from './components/ModalCreateOrderService';
 
 function OrderServices() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -38,6 +39,10 @@ function OrderServices() {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    renderItemStatusService
+  }, [dataStatus]);
 
   return (
     <S.Container>
@@ -68,7 +73,7 @@ function OrderServices() {
           keyExtractor={(item) => item.id}
         />
       </S.ContentContainer>
-      <Modal
+      <ModalCreateOrderService
         typeService={typeService}
         animationType='slide'
         handleCloseModal={handleCloseModal}

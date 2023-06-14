@@ -1,5 +1,4 @@
 {
-
   "eslintConfig": {
     "extends": ["universe/native", "plugin:react/recommended",
         "airbnb",
