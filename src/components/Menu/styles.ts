@@ -6,7 +6,7 @@ export const Header = styled.View`
   padding: 30px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const HeaderTextContainer = styled.View`

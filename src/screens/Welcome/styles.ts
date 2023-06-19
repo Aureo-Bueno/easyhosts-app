@@ -16,8 +16,6 @@ export const ContainerLogo = styled.View`
 export const ContainerForm = styled(Animatable.View)`
   flex: 1;
   background-color: #fff;
-  border-top-right-radius: 25px;
-  border-top-right-radius: 25px;
   padding: 0 5% 0 5%;
 `;
 

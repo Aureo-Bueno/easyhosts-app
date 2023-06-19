@@ -1,14 +1,8 @@
 import Menu from '../../components/Menu';
 import * as S from './styles';
-import {
-  FlatList,
-  View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Text } from '@rneui/themed';
-import React,
-{ useContext,
-  useEffect,
-  useState }
-from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import {
   IOrderServicesResponse,
@@ -16,6 +10,7 @@ import {
 } from '../../service/queries/orderServices';
 import { TypeService } from '../../service/@types/orderService';
 import ModalCreateOrderService from './components/ModalCreateOrderService';
+import Button from '../../components/Button';
 
 function OrderServices() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -41,31 +36,31 @@ function OrderServices() {
   };
 
   useEffect(() => {
-    renderItemStatusService
+    renderItemStatusService;
   }, [dataStatus]);
 
   return (
     <S.Container>
-      <Menu headerText='Serviços' />
+      <Menu headerText="Serviços" />
       <S.ContentContainer>
-        <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(TypeService.CLEANING)}>
-            <S.BlockText>Limpeza </S.BlockText>
-          </S.Block>
-        </S.BlockContainer>
-
-        <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(TypeService.MAINTENANCE)}>
-            <S.BlockText>Manutenção</S.BlockText>
-          </S.Block>
-        </S.BlockContainer>
-
-        <S.BlockContainer>
-          <S.Block onPress={() => handleServiceClick(TypeService.FOOD)}>
-            <S.BlockText>Alimentação</S.BlockText>
-          </S.Block>
-        </S.BlockContainer>
-
+        <Button
+          title="Limpeza"
+          colorBackground="#04091d"
+          onPress={() => handleServiceClick(TypeService.CLEANING)}
+          size="lg"
+        />
+        <Button
+          title="Manutenção"
+          colorBackground="#04091d"
+          onPress={() => handleServiceClick(TypeService.MAINTENANCE)}
+          size="lg"
+        />
+        <Button
+          title="Alimentação"
+          colorBackground="#04091d"
+          onPress={() => handleServiceClick(TypeService.FOOD)}
+          size="lg"
+        />
         <FlatList
           ListHeaderComponent={<S.StatusTitle>Status das Solicitações</S.StatusTitle>}
           data={dataStatus}
@@ -73,9 +68,10 @@ function OrderServices() {
           keyExtractor={(item) => item.id}
         />
       </S.ContentContainer>
+
       <ModalCreateOrderService
         typeService={typeService}
-        animationType='slide'
+        animationType="slide"
         handleCloseModal={handleCloseModal}
         handleServiceClick={handleServiceClick}
         transparent={true}

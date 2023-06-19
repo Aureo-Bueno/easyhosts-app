@@ -55,13 +55,14 @@ function ModalCreateOrderService({ animationType, transparent, visible, handleCl
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          padding: 20
         }}>
-        <View style={{ backgroundColor: '#FFF', padding: 20, borderRadius: 10 }}>
+        <View style={{ backgroundColor: '#FFF', padding: 20, borderRadius: 3 }}>
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
             Solicitação de serviço
           </Text>
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
-           O seu pedido será de : {typeService === 1 ? 'Limpeza' :  typeService === 2 ? 'Manutenção' : typeService === 3 ? 'Comida' : ''}
+           O seu pedido será de: {typeService === 1 ? 'Limpeza' :  typeService === 2 ? 'Manutenção' : typeService === 3 ? 'Comida' : ''}
           </Text>
           <Input placeholder='Descrição' onChangeText={(description) => {setDescription(description)}} value={description}/>
           {typeService === 3 &&

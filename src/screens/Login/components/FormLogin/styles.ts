@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 export const ContainerForms = styled(Animatable.View)`
   width: 90%;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 20px;
 `;
 
