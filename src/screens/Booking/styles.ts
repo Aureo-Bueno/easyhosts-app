@@ -48,7 +48,7 @@ export const HeaderText = styled.Text`
 
 export const Card = styled.View`
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 20px;
   margin-bottom: 20px;
 `;

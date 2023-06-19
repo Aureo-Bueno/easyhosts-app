@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { AuthContext, AuthProviderProps } from './AuthContext';
-import { IUser } from '../service/@types/user';
+import { IUserRole } from '../service/@types/user';
 
 export function AuthProvider ({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUserRole | null>(null);
 
   const value = useMemo(() => ({
     user,

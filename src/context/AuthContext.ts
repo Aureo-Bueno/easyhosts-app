@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import { IUser } from '../service/@types/user';
+import { IUserRole } from '../service/@types/user';
 
 export type AuthContextType = {
-  user: IUser | null;
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  user: IUserRole | null;
+  setUser: React.Dispatch<React.SetStateAction<IUserRole | null>>;
 };
 
 export const AuthContext = createContext<AuthContextType>({

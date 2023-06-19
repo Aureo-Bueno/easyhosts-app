@@ -1,23 +1,25 @@
 import { axiosClient } from '../../';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
+import { IUser } from '../../@types/user';
 
 export interface IBooking {
-  id: string;
-  name: string;
+  id: string,
+  name: string,
 }
 
 export interface IBookingResponse {
-  codeBooking: string;
-  checkin: string;
-  checkout: string;
-  userId: string;
+  codeBooking: string,
+  checkin: string,
+  checkout: string,
+  userId: string,
+  user: IUser,
 }
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`Booking`);
-    return response.data;
+    const { data } = await axiosClient.get<IBookingResponse>(`/Booking`);
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -25,9 +27,9 @@ export const useGet = async () => {
 };
 
 export const useGetId = async (id: string | undefined) => {
-  const response = await axiosClient.get(`Booking/getBookingByUserId/${id}`);
+  const response = await axiosClient.get(`/Booking/getBookingByUserId/${id}`);
   return response.data;
 };
 
 export const useGetBookingId = (id: string | undefined) =>
-  useQuery<IBookingResponse[], AxiosError>('getBookingByUserId', () => useGetId(id));
+  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id));

@@ -26,7 +26,7 @@ export const Logo = styled.Image`
 
 export const HeaderText = styled.Text`
   color: #FFF;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   margin-top: 10px;
 `;

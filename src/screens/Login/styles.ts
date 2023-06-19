@@ -18,13 +18,6 @@ export const Message = styled.Text`
   color: #fff;
 `;
 
-export const ContainerForms = styled(Animatable.View)`
-  width: 90%;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-`;
-
 export const Title = styled.Text`
   font-size: 20px;
   margin-top: 28px;

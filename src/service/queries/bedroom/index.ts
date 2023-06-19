@@ -10,7 +10,7 @@ export interface IBedroom {
 
 export const useGet = async () => {
   try {
-    const response = await axiosClient.get(`Bedroom`);
+    const response = await axiosClient.get(`/Bedroom`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -19,24 +19,24 @@ export const useGet = async () => {
 };
 
 export const usePost = async (name: string, number: number) => {
-  const response = await axiosClient.post(`Bedroom`, {name, number});
+  const response = await axiosClient.post(`/Bedroom`, {name, number});
   return response.data;
 }
 
 export const useGetId = async (id: string) => {
-  const response = await axiosClient.get(`Bedroom/${id}`);
+  const response = await axiosClient.get(`/Bedroom/${id}`);
   return response.data;
 }
 
 export const useUpdate = async (name: string, number: number) => {
-  const response = await axiosClient.put(`Bedroom/`, {name, number});
+  const response = await axiosClient.put(`/Bedroom/`, {name, number});
   return response.data;
 }
 
 export const useDelete = async (id: string) => {
-  const response = await axiosClient.delete(`Bedroom/${id}`);
+  const response = await axiosClient.delete(`/Bedroom/${id}`);
   return response.data;
 }
 
 
-export const useGetBedroom = () => useQuery<IBedroom[], AxiosError>('getBedrooms', useGet);
+export const useGetBedroom = () => useQuery<Array<IBedroom>, AxiosError>('getBedrooms', useGet);

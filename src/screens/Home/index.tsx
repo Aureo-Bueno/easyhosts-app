@@ -1,10 +1,11 @@
 import * as S from './styles';
 import Menu from '../../components/Menu';
-import { Button } from '@rneui/themed';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationStackProp } from 'react-navigation-stack';
+import Card from '../../components/Card';
+import { TouchableOpacity } from 'react-native';
 
 function Home() {
   const navigation = useNavigation<NavigationStackProp>();
@@ -21,49 +22,49 @@ function Home() {
   return (
     <S.Container>
       <Menu headerText="Início" />
-
-      <S.ContentContainer contentContainerStyle={{ paddingBottom: 20 }}>
-        <S.BlockContainer>
-          <S.BlockFat>
-            <S.BlockTextName>Olá {user?.email},</S.BlockTextName>
-            <S.BlockTextHotel>Bem vindo ao Hotel</S.BlockTextHotel>
-            <Button
-              title="Avaliar"
-              titleStyle={{ fontWeight: 'bold', fontSize: 18, color: '#04091D' }}
-              buttonStyle={{
-                backgroundColor: '#F8B100',
-                width: '35%',
-                borderRadius: 10,
-                marginTop: 20,
-                paddingVertical: 12,
-              }}
-            />
-          </S.BlockFat>
-        </S.BlockContainer>
-
-        <S.BlockContainer>
-          <S.Block onPress={handleGoBooking}>
-            <S.MenuIconBlock name="bed-outline" size={48} />
-            <S.CardBlockText>Serviço de Quarto</S.CardBlockText>
-          </S.Block>
-
-          <S.Block onPress={handleOrderService}>
-            <S.MenuIconBlock name="newspaper-outline" size={48} />
-            <S.CardBlockText>Dados da Reserva</S.CardBlockText>
-          </S.Block>
-        </S.BlockContainer>
-
-        <S.BlockContainer>
-          <S.Block>
-            <S.MenuIconBlock name="compass-outline" size={48} />
-            <S.CardBlockText>Evento</S.CardBlockText>
-          </S.Block>
-
-          <S.Block>
-            <S.MenuIconBlock name="cash-outline" size={48} />
-            <S.CardBlockText>Checkout</S.CardBlockText>
-          </S.Block>
-        </S.BlockContainer>
+      <Card
+        title={user?.user.userName}
+        subTitle="Bem vindo ao Aplicativo"
+        styleText={{ color: 'white', fontWeight: 'normal', fontSize: 36 }}
+        containerStyle={{
+          borderRadius: 2,
+          borderWidth: 0,
+          padding: 30,
+          alignItems: 'center',
+          backgroundColor: '#04091d',
+        }}
+      />
+      <S.ContentContainer>
+        <TouchableOpacity onPress={handleOrderService}>
+          <Card
+            title="Serviço de Quarto"
+            styleText={{ color: 'white', fontWeight: 'normal', fontSize: 16 }}
+            styleIcon={{ color: '#f8b100' }}
+            icon="bed-outline"
+            containerStyle={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              borderRadius: 2,
+              borderWidth: 0,
+              backgroundColor: '#04091d',
+            }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleGoBooking}>
+          <Card
+            title="Dados da Reserva"
+            styleText={{ color: 'white', fontWeight: 'normal', fontSize: 16 }}
+            styleIcon={{ color: '#f8b100' }}
+            icon="newspaper-outline"
+            containerStyle={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              borderRadius: 2,
+              borderWidth: 0,
+              backgroundColor: '#04091d',
+            }}
+          />
+        </TouchableOpacity>
       </S.ContentContainer>
     </S.Container>
   );
