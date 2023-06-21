@@ -20,11 +20,11 @@ function FormLogin({ setEmail, setPassword, email, password, navigation}:IFormLo
       },
       {
         onSuccess: (userData: IUserRole) => {
-          const result = userData.role.find(x => x === 'Employee');
+          const result = userData.role.find(x => x === 'Manager');
 
-          if(result === 'Employee') {
+          if(result === 'Manager' || result === 'Employe') {
             setUser(userData);
-            navigation.navigate('Configuration')
+            navigation.navigate('Manager')
           }else{
             setUser(userData);
             navigation.navigate('Home')

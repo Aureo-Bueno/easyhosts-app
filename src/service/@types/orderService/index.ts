@@ -1,8 +1,9 @@
 export interface IOrderService {
-  description: string;
-  userId: string | undefined;
-  employeeId: string | null ;
-  type: TypeService;
+  description: string,
+  userId: string | undefined,
+  employeeId: string | null ,
+  type: TypeService,
+  productId?: string,
 }
 
 

@@ -1,16 +1,14 @@
 import Menu from '../../components/Menu';
 import * as S from './styles';
-import { FlatList, View } from 'react-native';
-import { Text } from '@rneui/themed';
+import { FlatList } from 'react-native';
+import { Divider } from '@rneui/themed';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import {
-  IOrderServicesResponse,
-  useGetOrderServiceById,
-} from '../../service/queries/orderServices';
+import { useGetOrderServiceById } from '../../service/queries/orderServices';
 import { TypeService } from '../../service/@types/orderService';
 import ModalCreateOrderService from './components/ModalCreateOrderService';
 import Button from '../../components/Button';
+import { IOrderServicesResponse } from '../../service/queries/orderServices/@types';
 
 function OrderServices() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -19,11 +17,24 @@ function OrderServices() {
   const { data: dataStatus } = useGetOrderServiceById(user?.user.id);
 
   const renderItemStatusService = ({ item }: { item: IOrderServicesResponse }) => (
-    <View>
-      <Text>
-        Descrição: {item.description} / Status: {item.status}
-      </Text>
-    </View>
+    <>
+      <S.TextDesc>Descrição: {item.description}</S.TextDesc>
+      <S.TextStatus>
+        Status:ㅤ
+        {item.status === 1 ? (
+          <S.Icon name="checkmark-circle-outline" size={24} color="#00d9ff" />
+        ) : item.status === 2 ? (
+          <S.Icon name="refresh-circle-outline" size={24} color="#ff9d00" />
+        ) : item.status === 3 ? (
+          <S.Icon name="remove-circle-outline" size={24} color="#039900" />
+        ) : item.status === 4 ? (
+          <S.Icon name="close-circle-outline" size={24} color="#990000" />
+        ) : (
+          ''
+        )}
+      </S.TextStatus>
+      <Divider width={1} />
+    </>
   );
 
   const handleServiceClick = (service: TypeService) => {

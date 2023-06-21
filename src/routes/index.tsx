@@ -6,24 +6,34 @@ import Welcome from '../screens/Welcome';
 import Booking from '../screens/Booking';
 import OrderServices from '../screens/OrderServices';
 import { AuthContext } from '../context/AuthContext';
-import Configuration from '../screens/Configuration';
+import Manager from '../screens/Manager';
+import ListOrderServices from '../screens/ListOrderService';
 
 const AuthStack = createNativeStackNavigator();
 
 function AuthRoutes() {
   const { user } = useContext(AuthContext);
-  const role = user?.role.find(x => x === 'Employee')
+  const role = user?.role.find((x) => x === 'Manager');
 
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name='Welcome' component={Welcome} />
-      <AuthStack.Screen name='Login' component={Login} />
-      <AuthStack.Screen name='Home' component={Home} />
-      <AuthStack.Screen name='Booking' component={Booking} />
-      <AuthStack.Screen name='OrderServices' component={OrderServices} />
-      {role === 'Employee' &&
-        <AuthStack.Screen name='Configuration' component={Configuration} />
-      }
+      <AuthStack.Screen name="Welcome" component={Welcome} />
+      <AuthStack.Screen name="Login" component={Login} />
+
+      {user != null && (
+          <>
+            <AuthStack.Screen name="Home" component={Home} />
+            <AuthStack.Screen name="Booking" component={Booking} />
+            <AuthStack.Screen name="OrderServices" component={OrderServices} />
+          <>
+          {role === 'Manager' && (
+            <>
+              <AuthStack.Screen name="Manager" component={Manager} />
+              <AuthStack.Screen name="ListOrderServices" component={ListOrderServices} />
+            </>
+          )}
+        </></>
+      )}
     </AuthStack.Navigator>
   );
 }

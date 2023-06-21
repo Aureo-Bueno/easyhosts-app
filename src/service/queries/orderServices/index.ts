@@ -1,22 +1,11 @@
 import { axiosClient } from '../../';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
-
-export interface IOrderServices {
-  id: string,
-  name: string,
-}
-
-export interface IOrderServicesResponse {
-  id: string,
-  description: string,
-  userId: string,
-  status: string,
-}
+import { IOrderServicesResponse } from './@types';
 
 export const useGet = async () => {
   try {
-    const { data } = await axiosClient.get<IOrderServicesResponse>(`/OrderService`);
+    const { data } = await axiosClient.get(`/OrderService`);
     return data;
   } catch (error) {
     console.error(error);
@@ -31,3 +20,5 @@ export const useGetId = async (id: string | undefined) => {
 
 export const useGetOrderServiceById = (id: string | undefined) =>
   useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServiceByUserId', () => useGetId(id));
+
+export const useGetOrderServiceAll = () => useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServices', useGet);

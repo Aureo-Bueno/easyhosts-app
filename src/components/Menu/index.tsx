@@ -6,8 +6,6 @@ import logoEasyHosts from '../../assets/logo.jpg';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../context/AuthContext';
-import axios from 'axios';
-import { logout } from '../../service/queries/logout';
 
 function Menu({ headerText }: IMenu) {
   const navigation = useNavigation<NavigationStackProp>();
@@ -19,13 +17,8 @@ function Menu({ headerText }: IMenu) {
   const { setUser } = useContext(AuthContext);
 
   const handleLogout = async () => {
-    try {
-      logout
-      setUser(null);
-      navigation.push('Welcome');
-    } catch (error) {
-      console.error(error);
-    }
+    setUser(null)
+    navigation.navigate('Welcome');
   };
 
   return (

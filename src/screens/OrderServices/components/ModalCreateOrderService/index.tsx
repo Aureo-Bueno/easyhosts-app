@@ -1,15 +1,29 @@
 import { useState } from 'react';
-import { Modal as NAModal, View, Text, Alert } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { IModal } from './types';
 import { useOrderServicesMutation } from '../../../../service/mutations/orderServices/services';
 import Input from '../../../../components/Input';
 import Button from '../../../../components/Button';
 import * as S from './styles';
 import Modal from '../../../../components/Modal';
+import RNPickerSelect from 'react-native-picker-select';
+import { useGetProduct } from '../../../../service/queries/product';
+import { IProduct } from '../../../../service/queries/product/types';
+import { useOrderServicesWithProductMutation } from '../../../../service/mutations/orderServices/services/useOrderServiceWithProduct';
 
 function ModalCreateOrderService({ animationType, transparent, visible, handleCloseModal, userId, typeService }: IModal) {
   const [description, setDescription] = useState<string>('');
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
   const { mutate } = useOrderServicesMutation();
+  const { data } = useGetProduct();
+  const { mutate: mutateWithProduct} = useOrderServicesWithProductMutation();
+
+  const options = data || [];
+
+  const handleProdutChange = (value: string) => {
+    setSelectedProduct(value);
+  };
+
   const handlePostService = () => {
     mutate(
       {
@@ -17,6 +31,40 @@ function ModalCreateOrderService({ animationType, transparent, visible, handleCl
         userId: userId,
         employeeId: null,
         type: typeService,
+      },
+      {
+        onSuccess: (data) => {
+          Alert.alert('Ordem de serviço', 'Cadastrado!', [
+            {
+              text: 'Cancel',
+              onPress: handleCloseModal,
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: handleCloseModal },
+          ]);
+        },
+        onError: () => {
+          Alert.alert('Erro ao cadastrar!', `Tente novamente mais tarde!`, [
+            {
+              text: 'Cancel',
+              onPress: handleCloseModal,
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: handleCloseModal },
+          ]);
+        },
+      }
+    );
+  };
+
+  const handlePostWithProductService = () => {
+    mutateWithProduct(
+      {
+        description,
+        userId: userId,
+        employeeId: null,
+        type: typeService,
+        productId: selectedProduct,
       },
       {
         onSuccess: (data) => {
@@ -66,10 +114,23 @@ function ModalCreateOrderService({ animationType, transparent, visible, handleCl
           </Text>
           <Input placeholder='Descrição' onChangeText={(description) => {setDescription(description)}} value={description}/>
           {typeService === 3 &&
-            <Input placeholder='Alimento'/>
+            <RNPickerSelect
+              items={options.map((option: IProduct) => ({
+                label: option.name,
+                value: option.id,
+              }))}
+              onValueChange={handleProdutChange}
+              value={selectedProduct}
+           />
           }
           <S.View>
-            <Button title='Confirmar' onPress={handlePostService} size='lg' colorBackground='#04091D' />
+            {typeService === 1 || typeService === 2 &&
+              <Button title='Confirmar' onPress={handlePostService} size='lg' colorBackground='#04091D' />
+            }
+
+            {typeService == 3 &&
+             <Button title='Confirmar' onPress={handlePostWithProductService} size='lg' colorBackground='#04091D' />
+            }
             <Button title='Fechar' onPress={handleCloseModal} size='lg' colorBackground='#04091D' />
           </S.View>
         </View>
