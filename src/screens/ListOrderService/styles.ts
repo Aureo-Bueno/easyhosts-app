@@ -26,4 +26,6 @@ export const TextDesc = styled.Text`
 `;
 
 export const Icon = styled(Ionicons)`
+  display: flex;
+  align-items: flex-end;
 `;

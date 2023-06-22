@@ -4,6 +4,7 @@ export interface IOrderService {
   employeeId: string | null ,
   type: TypeService,
   productId?: string,
+  bedroomId?: string,
 }
 
 

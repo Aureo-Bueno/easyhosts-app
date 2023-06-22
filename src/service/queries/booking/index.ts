@@ -7,6 +7,11 @@ export interface IBooking {
   id: string,
   name: string,
 }
+export interface IBedroomResponse {
+  id: string,
+  name: string,
+  number: number,
+}
 
 export interface IBookingResponse {
   codeBooking: string,
@@ -14,6 +19,8 @@ export interface IBookingResponse {
   checkout: string,
   userId: string,
   user: IUser,
+  bedroomId: string,
+  bedroom: IBedroomResponse,
 }
 
 export const useGet = async () => {
@@ -27,9 +34,9 @@ export const useGet = async () => {
 };
 
 export const useGetId = async (id: string | undefined) => {
-  const response = await axiosClient.get(`/Booking/getBookingByUserId/${id}`);
-  return response.data;
+  const { data } = await axiosClient.get(`/Booking/getBookingByUserId/${id}`);
+  return data;
 };
 
 export const useGetBookingId = (id: string | undefined) =>
-  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id));
+  useQuery<IBookingResponse, AxiosError>('getBookingByUserId', () => useGetId(id));

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { View, Text, Alert } from 'react-native';
 import { IModal } from './types';
 import { useOrderServicesMutation } from '../../../../service/mutations/orderServices/services';
@@ -10,6 +10,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import { useGetProduct } from '../../../../service/queries/product';
 import { IProduct } from '../../../../service/queries/product/types';
 import { useOrderServicesWithProductMutation } from '../../../../service/mutations/orderServices/services/useOrderServiceWithProduct';
+import { useGetBookingId } from '../../../../service/queries/booking';
+import { AuthContext } from '../../../../context/AuthContext';
 
 function ModalCreateOrderService({ animationType, transparent, visible, handleCloseModal, userId, typeService }: IModal) {
   const [description, setDescription] = useState<string>('');
@@ -17,6 +19,8 @@ function ModalCreateOrderService({ animationType, transparent, visible, handleCl
   const { mutate } = useOrderServicesMutation();
   const { data } = useGetProduct();
   const { mutate: mutateWithProduct} = useOrderServicesWithProductMutation();
+  const { user } = useContext(AuthContext);
+  const { data: bookingByUser, isLoading } = useGetBookingId(user?.user.id);
 
   const options = data || [];
 
@@ -31,6 +35,7 @@ function ModalCreateOrderService({ animationType, transparent, visible, handleCl
         userId: userId,
         employeeId: null,
         type: typeService,
+        bedroomId: bookingByUser?.bedroomId
       },
       {
         onSuccess: (data) => {

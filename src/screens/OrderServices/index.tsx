@@ -16,6 +16,10 @@ function OrderServices() {
   const { user } = useContext(AuthContext);
   const { data: dataStatus } = useGetOrderServiceById(user?.user.id);
 
+  useEffect(() => {
+    dataStatus
+  }, [dataStatus]);
+
   const renderItemStatusService = ({ item }: { item: IOrderServicesResponse }) => (
     <>
       <S.TextDesc>Descrição: {item.description}</S.TextDesc>
