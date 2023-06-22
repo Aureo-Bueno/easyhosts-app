@@ -2,7 +2,7 @@ import Menu from '../../components/Menu';
 import * as S from './styles';
 import { FlatList } from 'react-native';
 import { Divider } from '@rneui/themed';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useGetOrderServiceById } from '../../service/queries/orderServices';
 import { TypeService } from '../../service/@types/orderService';
@@ -15,10 +15,6 @@ function OrderServices() {
   const [typeService, setTypeService] = useState<TypeService>(TypeService.CLEANING);
   const { user } = useContext(AuthContext);
   const { data: dataStatus } = useGetOrderServiceById(user?.user.id);
-
-  useEffect(() => {
-    dataStatus
-  }, [dataStatus]);
 
   const renderItemStatusService = ({ item }: { item: IOrderServicesResponse }) => (
     <>
@@ -49,10 +45,6 @@ function OrderServices() {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
-
-  useEffect(() => {
-    renderItemStatusService;
-  }, [dataStatus]);
 
   return (
     <S.Container>

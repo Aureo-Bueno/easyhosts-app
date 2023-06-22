@@ -19,6 +19,6 @@ export const useGetId = async (id: string | undefined) => {
 };
 
 export const useGetOrderServiceById = (id: string | undefined) =>
-  useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServiceByUserId', () => useGetId(id));
+  useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServiceByUserId', () => useGetId(id), { refetchInterval: 5000 });
 
-export const useGetOrderServiceAll = () => useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServices', useGet);
+export const useGetOrderServiceAll = () => useQuery<Array<IOrderServicesResponse>, AxiosError>('getOrderServices', useGet, { refetchInterval: 5000 });
