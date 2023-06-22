@@ -39,4 +39,4 @@ export const useGetId = async (id: string | undefined) => {
 };
 
 export const useGetBookingId = (id: string | undefined) =>
-  useQuery<IBookingResponse, AxiosError>('getBookingByUserId', () => useGetId(id), { refetchInterval: 5000 });
+  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id), { refetchInterval: 5000 });

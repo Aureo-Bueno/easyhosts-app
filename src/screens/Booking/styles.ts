@@ -69,3 +69,11 @@ export const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const TitleList = styled.Text`
+  color: #04091d;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0 20px 0;
+  text-align: center;
+`;

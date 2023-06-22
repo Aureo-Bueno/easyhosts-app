@@ -4,26 +4,26 @@ import { useUpdateStatusOrderService } from '../../service/mutations/orderServic
 import { useGetOrderServiceAll } from '../../service/queries/orderServices';
 import { IOrderServicesResponse } from '../../service/queries/orderServices/@types';
 import * as S from './styles';
-import { FlatList, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
 import Modal from '../../components/Modal';
 import { Card, Divider } from '@rneui/base';
 import { useGetBookingId } from '../../service/queries/booking';
 
 function ListOrderServices() {
-  const [userBookingId, setserBookingId] = useState<string>();
+  const [userBookingId, setUserBookingId] = useState<string>();
   const { data: dataListOrderService } = useGetOrderServiceAll();
   const { mutate } = useUpdateStatusOrderService();
   const { user } = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { data: bookingByUser, isLoading } = useGetBookingId(userBookingId);
+  const { data: bookingByUser } = useGetBookingId(userBookingId);
 
   const handleCloseModal = () => {
     setModalVisible(false);
   };
 
   const renderItemStatusService = ({ item }: { item: IOrderServicesResponse }) => {
-    setserBookingId(item.userId);
+    const bookingData = bookingByUser?.find((booking) => booking.userId === item.userId);
     const handleAlterStatusOrderService = () => {
       mutate(
         {
@@ -57,12 +57,8 @@ function ListOrderServices() {
           {item.status === 3 && <S.Icon name="md-checkmark-circle" size={24} color="green" />}
           {item.status === 4 && <S.Icon name="close-outline" size={24} color="#990000" />}
         </S.TextStatus>
-        <S.TextStatus>
-         Nome do Hóspede: {bookingByUser?.user.userName}
-        </S.TextStatus>
-        <S.TextStatus>
-          Número do quarto: {bookingByUser?.bedroom.number}
-        </S.TextStatus>
+        <S.TextStatus>Nome do Hóspede: {bookingData?.user.userName}</S.TextStatus>
+        <S.TextStatus>Número do quarto: {bookingData?.bedroom.number}</S.TextStatus>
 
         <Divider width={1} />
       </Card>
