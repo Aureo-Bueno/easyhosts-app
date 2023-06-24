@@ -3,14 +3,15 @@ import { View, Text, Alert } from 'react-native';
 import { IModal } from './types';
 import { useOrderServicesMutation } from '../../../../service/mutations/orderServices/services';
 import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
 import * as S from './styles';
 import Modal from '../../../../components/Modal';
 import { useGetProduct } from '../../../../service/queries/product';
 import { IProduct } from '../../../../service/queries/product/types';
 import { useOrderServicesWithProductMutation } from '../../../../service/mutations/orderServices/services/useOrderServiceWithProduct';
-import { useGetBookingId } from '../../../../service/queries/booking';
+import { useGetBookingIdByUserIdOrderService } from '../../../../service/queries/booking';
 import { AuthContext } from '../../../../context/AuthContext';
+import { TypeService } from '../../../../service/@types/orderService';
+import Button from '../../../../components/Button';
 
 function ModalCreateOrderService({
   animationType,
@@ -22,11 +23,12 @@ function ModalCreateOrderService({
 }: IModal) {
   const [description, setDescription] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<string>('');
-  const { mutate } = useOrderServicesMutation();
+  const { mutate, isLoading: loadingService } = useOrderServicesMutation();
   const { data } = useGetProduct();
-  const { mutate: mutateWithProduct } = useOrderServicesWithProductMutation();
+  const { mutate: mutateWithProduct, isLoading: loadingWithProduct } =
+    useOrderServicesWithProductMutation();
   const { user } = useContext(AuthContext);
-  const { data: bookingByUser, isLoading } = useGetBookingId(user?.user.id);
+  const { data: bookingByUser, isLoading } = useGetBookingIdByUserIdOrderService(user?.user.id);
 
   const options = data || [];
 
@@ -76,6 +78,7 @@ function ModalCreateOrderService({
         employeeId: null,
         type: typeService,
         productId: selectedProduct,
+        bedroomId: bookingByUser?.bedroomId,
       },
       {
         onSuccess: (data) => {
@@ -131,7 +134,7 @@ function ModalCreateOrderService({
               : ''}
           </Text>
           <Input
-            placeholder="Descrição"
+            placeholder='Descrição'
             onChangeText={(description) => {
               setDescription(description);
             }}
@@ -154,25 +157,36 @@ function ModalCreateOrderService({
             </S.Container>
           )}
           <S.View>
-            {typeService === 1 ||
-              (typeService === 2 && (
-                <Button
-                  title="Confirmar"
-                  onPress={handlePostService}
-                  size="lg"
-                  colorBackground="#04091D"
-                />
-              ))}
-
-            {typeService == 3 && (
+            {typeService === TypeService.CLEANING && (
               <Button
-                title="Confirmar"
-                onPress={handlePostWithProductService}
-                size="lg"
-                colorBackground="#04091D"
+                title='Confirmar'
+                onPress={handlePostService}
+                size='lg'
+                colorBackground='#04091D'
+                loading={loadingService}
               />
             )}
-            <Button title="Fechar" onPress={handleCloseModal} size="lg" colorBackground="#04091D" />
+
+            {typeService === TypeService.MAINTENANCE && (
+              <Button
+                title='Confirmar'
+                onPress={handlePostService}
+                size='lg'
+                colorBackground='#04091D'
+                loading={loadingService}
+              />
+            )}
+
+            {typeService === TypeService.FOOD && (
+              <Button
+                title='Confirmar'
+                onPress={handlePostWithProductService}
+                size='lg'
+                colorBackground='#04091D'
+                loading={loadingWithProduct}
+              />
+            )}
+            <Button title='Fechar' onPress={handleCloseModal} size='lg' colorBackground='#04091D' />
           </S.View>
         </View>
       </View>

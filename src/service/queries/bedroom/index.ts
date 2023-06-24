@@ -1,12 +1,7 @@
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import { axiosClient } from '../../';
-
-export interface IBedroom {
-  id: number,
-  name: string,
-  number: number
-}
+import { IBedroom } from './@types';
 
 export const useGet = async () => {
   try {

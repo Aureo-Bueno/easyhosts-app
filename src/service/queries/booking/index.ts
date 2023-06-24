@@ -4,23 +4,23 @@ import { AxiosError } from 'axios';
 import { IUser } from '../../@types/user';
 
 export interface IBooking {
-  id: string,
-  name: string,
+  id: string;
+  name: string;
 }
 export interface IBedroomResponse {
-  id: string,
-  name: string,
-  number: number,
+  id: string;
+  name: string;
+  number: number;
 }
 
 export interface IBookingResponse {
-  codeBooking: string,
-  checkin: string,
-  checkout: string,
-  userId: string,
-  user: IUser,
-  bedroomId: string,
-  bedroom: IBedroomResponse,
+  codeBooking: string;
+  checkin: string;
+  checkout: string;
+  userId: string;
+  user: IUser;
+  bedroomId: string;
+  bedroom: IBedroomResponse;
 }
 
 export const useGet = async () => {
@@ -39,4 +39,19 @@ export const useGetId = async (id: string | undefined) => {
 };
 
 export const useGetBookingId = (id: string | undefined) =>
-  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id), { refetchInterval: 5000 });
+  useQuery<Array<IBookingResponse>, AxiosError>('getBookingByUserId', () => useGetId(id), {
+    refetchInterval: 5000,
+  });
+
+export const useGetBookingByUserId = async (id: string | undefined) => {
+  const { data } = await axiosClient.get(`/Booking/getBookingByUserIdOrderService/${id}`);
+  return data;
+};
+export const useGetBookingIdByUserIdOrderService = (id: string | undefined) =>
+  useQuery<IBookingResponse, AxiosError>(
+    'getBookingByUserIdOrderService',
+    () => useGetBookingByUserId(id),
+    {
+      refetchInterval: 5000,
+    }
+  );

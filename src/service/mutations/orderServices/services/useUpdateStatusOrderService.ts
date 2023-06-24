@@ -8,3 +8,10 @@ export const useUpdateStatus = async ({ orderServiceId, employeId } : IUpdateSta
 }
 
 export const useUpdateStatusOrderService = () => useMutation(useUpdateStatus);
+
+export const useUpdateCompletedStatus = async ({ orderServiceId, employeId } : IUpdateStatusOrderService ) => {
+  const { data } = await axiosClient.patch(`/OrderService/completedOrderService/${orderServiceId}`, { employeId });
+  return data;
+}
+
+export const useUpdateStatusCompletedOrderService = () => useMutation(useUpdateCompletedStatus);

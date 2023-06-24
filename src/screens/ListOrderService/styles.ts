@@ -1,5 +1,12 @@
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import { Card as RNCard, Divider as RNDivider } from '@rneui/base';
+
+export const Card = styled(RNCard)`
+`;
+
+export const Divider = styled(RNDivider)`
+`;
 
 export const Container = styled.View`
   flex: 1;
@@ -14,10 +21,27 @@ export const TitleList = styled.Text`
   text-align: center;
 `;
 
+export const ContainerList = styled.View`
+  flex: 1;
+`;
+
+export const Grid = styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+export const GridItem = styled.View`
+  width: 80%;
+`;
+
+export const GridItemIcon = styled.View`
+  width: 10%;
+`;
+
 export const TextStatus = styled.Text`
-  margin: 0 0 15px 0;
-  font-size: 16px;
-  vertical-align: middle;
+  flex: 1;
+  padding: 15px;
 `;
 
 export const TextDesc = styled.Text`
@@ -26,6 +50,5 @@ export const TextDesc = styled.Text`
 `;
 
 export const Icon = styled(Ionicons)`
-  display: flex;
-  align-items: flex-end;
+  padding-top: 11px;
 `;
