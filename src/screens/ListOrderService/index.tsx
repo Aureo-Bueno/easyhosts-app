@@ -88,7 +88,7 @@ function ListOrderServices() {
               </S.Grid>
             </S.ContainerList>
 
-            <S.TextStatus>Número do quarto: {item.bedroom.number}</S.TextStatus>
+            <S.TextStatus>Número do quarto: {item.bedroom?.number}</S.TextStatus>
             {item.productId !== null && <S.TextStatus>Produto: {item.product?.name}</S.TextStatus>}
             <Button
               title='Em Andamento'
@@ -112,7 +112,7 @@ function ListOrderServices() {
                 </S.GridItemIcon>
               </S.Grid>
             </S.ContainerList>
-            <S.TextStatus>Número do quarto: {item.bedroom.number}</S.TextStatus>
+            <S.TextStatus>Número do quarto: {item.bedroom?.number}</S.TextStatus>
             {item.productId !== null && <S.TextStatus>Produto: {item.product?.name}</S.TextStatus>}
             <Button
               title='Finalizar'
@@ -137,7 +137,7 @@ function ListOrderServices() {
               </S.Grid>
             </S.ContainerList>
 
-            <S.TextStatus>Número do quarto: {item.bedroom.number}</S.TextStatus>
+            <S.TextStatus>Número do quarto: {item.bedroom?.number}</S.TextStatus>
             {item.productId !== null && <S.TextStatus>Produto: {item.product?.name}</S.TextStatus>}
             <S.Divider width={1} />
           </S.Card>
